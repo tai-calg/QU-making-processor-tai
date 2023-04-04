@@ -8,8 +8,8 @@ module main ();
   initial begin
     $dumpvars;
     a = 0; b = 0;
-    #100 a <= 0; b <= 0;
-    #100 a <= 0; b <= 1;
+    #100 a <= 0; b <= 0;//100ns秒後
+    #100 a <= 0; b <= 1; // t= 200ns
     #100 a <= 1; b <= 0;
     #100 a <= 1; b <= 1;
     #100 $finish;
