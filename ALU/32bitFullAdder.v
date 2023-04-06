@@ -1,4 +1,4 @@
-module ALU32(A,B,cin,X,cout);
+module FULLADD32(A,B,cin,X,cout);
 
     input [31:0] A;
     input [31:0] B;
@@ -6,6 +6,10 @@ module ALU32(A,B,cin,X,cout);
     output[31:0] X;
     output cout;
     wire [1:0] C;
+
+
+        
+        
 
     ALU16 alu16_0 (.A(A[15:0]), .B(B[15:0]), .cin(cin), .X(X[15:0]), .cout(C[0]));
     ALU16 alu16_1 (.A(A[31:16]), .B(B[31:16]), .cin(C[0]), .X(X[31:16]), .cout(cout));
