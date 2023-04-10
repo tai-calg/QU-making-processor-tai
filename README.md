@@ -15,11 +15,13 @@ $ open dump.vcd
 testディレクトリの.vファイルがシミュレーションファイルです。
  
 - how to use make command 
+
 makeコマンドで.vvpが出力されます、vvpコマンドで.vvpファイルをコンパイルするとdump.vcdが出力されます。
 
 - open *.vcdでGUIでシミュレーションが確認できます。
 
 - makefileの文法
+
 https://tex2e.github.io/blog/makefile/automatic-variables
 
 
