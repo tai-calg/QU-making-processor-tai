@@ -1,5 +1,5 @@
 $date
-	Mon Apr 10 14:30:12 2023
+	Mon Apr 10 17:43:40 2023
 $end
 $version
 	Icarus Verilog
@@ -7,607 +7,91 @@ $end
 $timescale
 	1ns
 $end
-$scope module FULLADD32 $end
-$var wire 32 ! A [31:0] $end
-$var wire 32 " B [31:0] $end
-$var wire 1 # cin $end
-$var wire 1 $ cout $end
-$var wire 32 % X [31:0] $end
-$var wire 2 & C [1:0] $end
-$scope module alu16_0 $end
-$var wire 16 ' A [15:0] $end
-$var wire 16 ( B [15:0] $end
-$var wire 1 # cin $end
-$var wire 1 ) cout $end
-$var wire 16 * X [15:0] $end
-$var wire 15 + C [14:0] $end
-$scope module alu4_0 $end
-$var wire 4 , A [3:0] $end
-$var wire 4 - B [3:0] $end
-$var wire 1 # cin $end
-$var wire 1 . cout $end
-$var wire 4 / X [3:0] $end
-$var wire 3 0 Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 1 A $end
-$var wire 1 2 B $end
-$var wire 1 # Cin $end
-$var wire 1 3 Cout $end
-$var wire 1 4 S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 5 A $end
-$var wire 1 6 B $end
-$var wire 1 7 Cin $end
-$var wire 1 8 Cout $end
-$var wire 1 9 S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 : A $end
-$var wire 1 ; B $end
-$var wire 1 < Cin $end
-$var wire 1 = Cout $end
-$var wire 1 > S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 ? A $end
-$var wire 1 @ B $end
-$var wire 1 A Cin $end
-$var wire 1 . Cout $end
-$var wire 1 B S $end
-$upscope $end
-$upscope $end
-$scope module alu4_1 $end
-$var wire 4 C A [3:0] $end
-$var wire 4 D B [3:0] $end
-$var wire 1 E cin $end
-$var wire 1 F cout $end
-$var wire 4 G X [3:0] $end
-$var wire 3 H Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 I A $end
-$var wire 1 J B $end
-$var wire 1 E Cin $end
-$var wire 1 K Cout $end
-$var wire 1 L S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 M A $end
-$var wire 1 N B $end
-$var wire 1 O Cin $end
-$var wire 1 P Cout $end
-$var wire 1 Q S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 R A $end
-$var wire 1 S B $end
-$var wire 1 T Cin $end
-$var wire 1 U Cout $end
-$var wire 1 V S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 W A $end
-$var wire 1 X B $end
-$var wire 1 Y Cin $end
-$var wire 1 F Cout $end
-$var wire 1 Z S $end
-$upscope $end
-$upscope $end
-$scope module alu4_2 $end
-$var wire 4 [ A [3:0] $end
-$var wire 4 \ B [3:0] $end
-$var wire 1 ] cin $end
-$var wire 1 ^ cout $end
-$var wire 4 _ X [3:0] $end
-$var wire 3 ` Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 a A $end
-$var wire 1 b B $end
-$var wire 1 ] Cin $end
-$var wire 1 c Cout $end
-$var wire 1 d S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 e A $end
-$var wire 1 f B $end
-$var wire 1 g Cin $end
-$var wire 1 h Cout $end
-$var wire 1 i S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 j A $end
-$var wire 1 k B $end
-$var wire 1 l Cin $end
-$var wire 1 m Cout $end
-$var wire 1 n S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 o A $end
-$var wire 1 p B $end
-$var wire 1 q Cin $end
-$var wire 1 ^ Cout $end
-$var wire 1 r S $end
-$upscope $end
-$upscope $end
-$scope module alu4_3 $end
-$var wire 4 s A [3:0] $end
-$var wire 4 t B [3:0] $end
-$var wire 1 u cin $end
-$var wire 1 ) cout $end
-$var wire 4 v X [3:0] $end
-$var wire 3 w Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 x A $end
-$var wire 1 y B $end
-$var wire 1 u Cin $end
-$var wire 1 z Cout $end
-$var wire 1 { S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 | A $end
-$var wire 1 } B $end
-$var wire 1 ~ Cin $end
-$var wire 1 !" Cout $end
-$var wire 1 "" S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 #" A $end
-$var wire 1 $" B $end
-$var wire 1 %" Cin $end
-$var wire 1 &" Cout $end
-$var wire 1 '" S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 (" A $end
-$var wire 1 )" B $end
-$var wire 1 *" Cin $end
-$var wire 1 ) Cout $end
-$var wire 1 +" S $end
-$upscope $end
-$upscope $end
-$upscope $end
-$scope module alu16_1 $end
-$var wire 16 ," A [15:0] $end
-$var wire 16 -" B [15:0] $end
-$var wire 1 ." cin $end
-$var wire 1 $ cout $end
-$var wire 16 /" X [15:0] $end
-$var wire 15 0" C [14:0] $end
-$scope module alu4_0 $end
-$var wire 4 1" A [3:0] $end
-$var wire 4 2" B [3:0] $end
-$var wire 1 ." cin $end
-$var wire 1 3" cout $end
-$var wire 4 4" X [3:0] $end
-$var wire 3 5" Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 6" A $end
-$var wire 1 7" B $end
-$var wire 1 ." Cin $end
-$var wire 1 8" Cout $end
-$var wire 1 9" S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 :" A $end
-$var wire 1 ;" B $end
-$var wire 1 <" Cin $end
-$var wire 1 =" Cout $end
-$var wire 1 >" S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 ?" A $end
-$var wire 1 @" B $end
-$var wire 1 A" Cin $end
-$var wire 1 B" Cout $end
-$var wire 1 C" S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 D" A $end
-$var wire 1 E" B $end
-$var wire 1 F" Cin $end
-$var wire 1 3" Cout $end
-$var wire 1 G" S $end
-$upscope $end
-$upscope $end
-$scope module alu4_1 $end
-$var wire 4 H" A [3:0] $end
-$var wire 4 I" B [3:0] $end
-$var wire 1 J" cin $end
-$var wire 1 K" cout $end
-$var wire 4 L" X [3:0] $end
-$var wire 3 M" Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 N" A $end
-$var wire 1 O" B $end
-$var wire 1 J" Cin $end
-$var wire 1 P" Cout $end
-$var wire 1 Q" S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 R" A $end
-$var wire 1 S" B $end
-$var wire 1 T" Cin $end
-$var wire 1 U" Cout $end
-$var wire 1 V" S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 W" A $end
-$var wire 1 X" B $end
-$var wire 1 Y" Cin $end
-$var wire 1 Z" Cout $end
-$var wire 1 [" S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 \" A $end
-$var wire 1 ]" B $end
-$var wire 1 ^" Cin $end
-$var wire 1 K" Cout $end
-$var wire 1 _" S $end
-$upscope $end
-$upscope $end
-$scope module alu4_2 $end
-$var wire 4 `" A [3:0] $end
-$var wire 4 a" B [3:0] $end
-$var wire 1 b" cin $end
-$var wire 1 c" cout $end
-$var wire 4 d" X [3:0] $end
-$var wire 3 e" Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 f" A $end
-$var wire 1 g" B $end
-$var wire 1 b" Cin $end
-$var wire 1 h" Cout $end
-$var wire 1 i" S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 j" A $end
-$var wire 1 k" B $end
-$var wire 1 l" Cin $end
-$var wire 1 m" Cout $end
-$var wire 1 n" S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 o" A $end
-$var wire 1 p" B $end
-$var wire 1 q" Cin $end
-$var wire 1 r" Cout $end
-$var wire 1 s" S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 t" A $end
-$var wire 1 u" B $end
-$var wire 1 v" Cin $end
-$var wire 1 c" Cout $end
-$var wire 1 w" S $end
-$upscope $end
-$upscope $end
-$scope module alu4_3 $end
-$var wire 4 x" A [3:0] $end
-$var wire 4 y" B [3:0] $end
-$var wire 1 z" cin $end
-$var wire 1 $ cout $end
-$var wire 4 {" X [3:0] $end
-$var wire 3 |" Ctemp [2:0] $end
-$scope module alu1_0 $end
-$var wire 1 }" A $end
-$var wire 1 ~" B $end
-$var wire 1 z" Cin $end
-$var wire 1 !# Cout $end
-$var wire 1 "# S $end
-$upscope $end
-$scope module alu1_1 $end
-$var wire 1 ## A $end
-$var wire 1 $# B $end
-$var wire 1 %# Cin $end
-$var wire 1 &# Cout $end
-$var wire 1 '# S $end
-$upscope $end
-$scope module alu1_2 $end
-$var wire 1 (# A $end
-$var wire 1 )# B $end
-$var wire 1 *# Cin $end
-$var wire 1 +# Cout $end
-$var wire 1 ,# S $end
-$upscope $end
-$scope module alu1_3 $end
-$var wire 1 -# A $end
-$var wire 1 .# B $end
-$var wire 1 /# Cin $end
-$var wire 1 $ Cout $end
-$var wire 1 0# S $end
-$upscope $end
-$upscope $end
-$upscope $end
-$upscope $end
 $scope module main $end
-$var wire 32 1# x [31:0] $end
-$var reg 32 2# a [31:0] $end
-$var reg 32 3# b [31:0] $end
-$var reg 4 4# mode [3:0] $end
+$var wire 32 ! x [31:0] $end
+$var reg 32 " a [31:0] $end
+$var reg 32 # b [31:0] $end
+$var reg 4 $ mode [3:0] $end
 $scope module alu32_0 $end
-$var wire 32 5# A [31:0] $end
-$var wire 32 6# B [31:0] $end
-$var wire 4 7# mode [3:0] $end
-$var wire 32 8# X [31:0] $end
+$var wire 32 % A [31:0] $end
+$var wire 32 & B [31:0] $end
+$var wire 4 ' mode [3:0] $end
+$var wire 32 ( X [31:0] $end
 $scope function operation $end
-$var reg 32 9# A [31:0] $end
-$var reg 32 :# B [31:0] $end
-$var reg 4 ;# mode [3:0] $end
+$var reg 32 ) A [31:0] $end
+$var reg 32 * B [31:0] $end
+$var reg 4 + mode [3:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-b1 ;#
-b10 :#
-b1 9#
-b11 8#
-b1 7#
-b10 6#
-b1 5#
-b1 4#
-b10 3#
-b1 2#
-b11 1#
-x0#
-x/#
-z.#
-z-#
-x,#
-x+#
-x*#
-z)#
-z(#
-x'#
-x&#
-x%#
-z$#
-z##
-x"#
-x!#
-z~"
-z}"
-bx |"
-bx {"
-xz"
-bz y"
-bz x"
-xw"
-xv"
-zu"
-zt"
-xs"
-xr"
-xq"
-zp"
-zo"
-xn"
-xm"
-xl"
-zk"
-zj"
-xi"
-xh"
-zg"
-zf"
-bx e"
-bx d"
-xc"
-xb"
-bz a"
-bz `"
-x_"
-x^"
-z]"
-z\"
-x["
-xZ"
-xY"
-zX"
-zW"
-xV"
-xU"
-xT"
-zS"
-zR"
-xQ"
-xP"
-zO"
-zN"
-bx M"
-bx L"
-xK"
-xJ"
-bz I"
-bz H"
-xG"
-xF"
-zE"
-zD"
-xC"
-xB"
-xA"
-z@"
-z?"
-x>"
-x="
-x<"
-z;"
-z:"
-x9"
-x8"
-z7"
-z6"
-bx 5"
-bx 4"
-x3"
-bz 2"
-bz 1"
-bzxxx 0"
-bx /"
-x."
-bz -"
-bz ,"
-x+"
-x*"
-z)"
-z("
-x'"
-x&"
-x%"
-z$"
-z#"
-x""
-x!"
-x~
-z}
-z|
-x{
-xz
-zy
-zx
-bx w
-bx v
-xu
-bz t
-bz s
-xr
-xq
-zp
-zo
-xn
-xm
-xl
-zk
-zj
-xi
-xh
-xg
-zf
-ze
-xd
-xc
-zb
-za
-bx `
-bx _
-x^
-x]
-bz \
-bz [
-xZ
-xY
-zX
-zW
-xV
-xU
-xT
-zS
-zR
-xQ
-xP
-xO
-zN
-zM
-xL
-xK
-zJ
-zI
-bx H
-bx G
-xF
-xE
-bz D
-bz C
-xB
-xA
-z@
-z?
-x>
-x=
-x<
-z;
-z:
-x9
-x8
-x7
-z6
-z5
-x4
-x3
-z2
-z1
-bx 0
-bx /
-x.
-bz -
-bz ,
-bzxxx +
-bx *
-x)
-bz (
-bz '
-bzx &
-bx %
-x$
-z#
-bz "
-bz !
+b1 +
+b10 *
+b1 )
+b11 (
+b1 '
+b10 &
+b1 %
+b1 $
+b10 #
+b1 "
+b11 !
 $end
 #100
-b11111111111111111111111111101010 1#
-b11111111111111111111111111101010 8#
-b100000 :#
-b1010 9#
-b10 ;#
-b10 4#
-b10 7#
-b100000 3#
-b100000 6#
-b1010 2#
-b1010 5#
+b11111111111111111111111111101010 !
+b11111111111111111111111111101010 (
+b100000 *
+b1010 )
+b10 +
+b10 $
+b10 '
+b100000 #
+b100000 &
+b1010 "
+b1010 %
 #200
-b11001000 1#
-b11001000 8#
-b11001010 :#
-b11001100 9#
-b11 ;#
-b11 4#
-b11 7#
-b11001010 3#
-b11001010 6#
-b11001100 2#
-b11001100 5#
+b11001000 !
+b11001000 (
+b11001010 *
+b11001100 )
+b11 +
+b11 $
+b11 '
+b11001010 #
+b11001010 &
+b11001100 "
+b11001100 %
 #300
-b11001110 1#
-b11001110 8#
-b100 ;#
-b100 4#
-b100 7#
+b11001110 !
+b11001110 (
+b100 +
+b100 $
+b100 '
 #400
-b110 1#
-b110 8#
-b101 ;#
-b101 4#
-b101 7#
+b110 !
+b110 (
+b101 +
+b101 $
+b101 '
 #500
-b1100110000 1#
-b1100110000 8#
-b10 :#
-b110 ;#
-b110 4#
-b110 7#
-b10 3#
-b10 6#
+b1100110000 !
+b1100110000 (
+b10 *
+b110 +
+b110 $
+b110 '
+b10 #
+b10 &
 #600
-b110011 1#
-b110011 8#
-b111 ;#
-b111 4#
-b111 7#
+b110011 !
+b110011 (
+b111 +
+b111 $
+b111 '
 #700
-b1000 ;#
-b1000 4#
-b1000 7#
+b1000 +
+b1000 $
+b1000 '
 #800

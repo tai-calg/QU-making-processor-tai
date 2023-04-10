@@ -1,11 +1,6 @@
-LIBRARY := ALU/32bitALU.v \
-		   ALU/1bitFA.v \
-		   ALU/4bitFA.v \
-		   ALU/16bitFA.v \
-		   ALU/32bitFullAdder.v \
+LIBRARY :=  ALU/32bitALU.v \
 
-TEST := test/32bitAdder_test.vvp \
-		test/32bitALU_test.vvp \
+TEST := test/32bitALU_test.vvp \
 
 
 all : $(TEST)
