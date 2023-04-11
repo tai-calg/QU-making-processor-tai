@@ -6,6 +6,7 @@ decoderといってもメインデコーダーとALUデコーダーにわけら�
 
 module decoder(
     input [31:0] inst,
+    input ZERO, // ZERO : for branch judge
 
     output pc_src ,
     output result_src,
@@ -13,23 +14,25 @@ module decoder(
     output [2:0] alu_ctrl,
     output alu_src,
     output [1:0] imm_src,
-    output reg_write,
-    output ZERO); // ZERO : for branch judge
-    // alu_ctrl = mode of ALU32
+    output reg_write); 
+    // alu_ctrl = mode in ALU32
 
-    // --- //
+    // --- def wire --- //
+
+    logic Jump;
+    
 
     // opcode で形式（分割の仕方を判定）
     singnal_controller asig(
         .opcode(inst[6:0]),
+        .ZERO(ZERO),
+        .Jump(Jump),
         .pc_src(pc_src),
-        .result_src(result_src),
+        .read_ram_src(result_src),
         .mem_write(mem_write),
-        .alu_ctrl(alu_ctrl),
         .alu_src(alu_src),
         .imm_src(imm_src),
         .reg_write(reg_write)
-        .ZERO(ZERO)
     );
 
     inst_decoder idec(
