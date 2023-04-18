@@ -13,7 +13,7 @@ module decoder(
     output mem_write,
     output [2:0] alu_ctrl,
     output alu_src,
-    output [1:0] imm_src,
+    output [2:0] imm_src, //!CHAGE: Utypeも必要なため、2bitから3bit配線に変更
     output reg_write); 
     // alu_ctrl = mode in ALU32
 

@@ -18,7 +18,7 @@ module singnal_controller(
     output read_ram_src, // = result_src
     output mem_write,
     output alu_src, 
-    output [1:0] imm_src,
+    output [2:0] imm_src,
     output reg_write,); // ZERO : for branch judge
     
     begin 
@@ -28,7 +28,7 @@ module singnal_controller(
                 read_ram_src = 1'b1; // read data from ram (0: not read ram , but from alu result)
                 mem_write = 1'b0;
                 alu_src = 1'b1; // select immExt
-                imm_src = 2'b00; // I-type, 12bit extend
+                imm_src = 3'b000; // I-type, 12bit extend
                 reg_write = 1'b1; 
                 Jump = 1'b0;
             end
@@ -37,7 +37,7 @@ module singnal_controller(
                 read_ram_src = 1'b0; // read data from alu result
                 mem_write = 1'b0;
                 alu_src = 1'b1; // imm
-                imm_src = 2'b00; // I-type, 12bit extend
+                imm_src = 3'b000; // I-type, 12bit extend
                 reg_write = 1'b1; 
                 Jump = 1'b0;
             end
@@ -46,7 +46,7 @@ module singnal_controller(
                 read_ram_src = 1'b0; // read data from alu result
                 mem_write = 1'b0;
                 alu_src = 1'b1; // imm
-                imm_src = 2'b00; // I-type, 12bit extend ...??
+                imm_src = 3'b000; // I-type, 12bit extend ...??
                 reg_write = 1'b1; 
                 Jump = 1'b0;
             end
@@ -55,7 +55,7 @@ module singnal_controller(
                 read_ram_src = 1'b0; 
                 mem_write = 1'b0; 
                 alu_src = 1'b1; // imm
-                imm_src = 2'b00; // I-type, 12bit extend ...??
+                imm_src = 3'b000; // I-type, 12bit extend ...??
                 reg_write = 1'b1;  //rd = pc + 4 (return address) ; WD ← PC + 4
                 Jump = 1'b1; // next is rs1 + signext(imm) 
             end
@@ -64,7 +64,7 @@ module singnal_controller(
                 read_ram_src = 1'bx; // don't care (any)
                 mem_write = 1'b1;
                 alu_src = 1'b1; // immExt
-                imm_src = 2'b01; // S-type, 12bit extend
+                imm_src = 3'b001; // S-type, 12bit extend
                 reg_write = 1'b0; 
                 Jump = 1'b0;
             end
@@ -73,7 +73,7 @@ module singnal_controller(
                 read_ram_src = 1'b0; // read data from alu result
                 mem_write = 1'b0;
                 alu_src = 1'b0; // rs2
-                imm_src = 2'bxx; // R-type, don't care
+                imm_src = 3'bxxx; // R-type, don't care
                 reg_write = 1'b1; 
                 Jump = 1'b0;
             end
@@ -82,7 +82,7 @@ module singnal_controller(
                 read_ram_src = 1'b0; // read data from alu result
                 mem_write = 1'b0;
                 alu_src = 1'b0; // rs2
-                imm_src = 2'bxx; // R-type, don't care
+                imm_src = 3'bxxx; // R-type, don't care
                 reg_write = 1'b1; 
                 Jump = 1'b0;
             end
@@ -91,7 +91,7 @@ module singnal_controller(
                 read_ram_src = 1'bx; // don't care 
                 mem_write = 1'b0;
                 alu_src = 1'b0; // rs2
-                imm_src = 2'b10; // B-type, 13bit extend
+                imm_src = 3'b010; // B-type, 13bit extend
                 reg_write = 1'b0; 
                 Jump = 1'b0;
             end
@@ -100,7 +100,7 @@ module singnal_controller(
                 read_ram_src = 1'bx; // don't care. becase don't use ALU
                 mem_write = 1'b0;
                 alu_src = 1'bx;
-                imm_src = 2'b11; // 21bit extend 
+                imm_src = 3'b011; // 21bit extend 
                 reg_write = 1'b1;  // rd = pc + 4 (return address) ; WD ← PC + 4
                 Jump = 1'b1; // next is JTA ( address ; immidiate ) pc=0 + address
             end
@@ -110,16 +110,16 @@ module singnal_controller(
                 read_ram_src = 1'b0; //use ALU result
                 mem_write = 1'b0;
                 alu_src = 1'b1; // imm
-                imm_src = 2'b??; //! U-type, 32bit extend ... READMEに議論書いてある。
+                imm_src = 3'b100; // U-type, <<12bit extend ... READMEに議論書いてある。
                 reg_write = 1'b1; 
                 Jump = 1'b0;
-            end // いつ＜＜１２するんだ？
+            end 
             7'b0110111: begin // 55: U-type: lui :rd = {upimm , 12'b0}
                 is_branch = 1'b0; // next is pc+4
                 read_ram_src = 1'b0; //use ALU result
                 mem_write = 1'b0;
                 alu_src = 1'b1; // imm (not use rs2)
-                imm_src = 2'b??; //! U-type, 32bit extend
+                imm_src = 3'b100; 
                 reg_write = 1'b1; 
                 Jump = 1'b0;
             end 
@@ -128,7 +128,7 @@ module singnal_controller(
                 read_ram_src = 1'bx; // don't care 
                 mem_write = 1'bx;
                 alu_src = 1'bx;
-                imm_src = 2'bxx; // don't care
+                imm_src = 3'bxxx; // don't care
                 reg_write = 1'bx; 
                 Jump = 1'bx; // 未定義動作！
             end
