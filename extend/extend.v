@@ -3,6 +3,7 @@ module extend(input logic [31:7] instr , // ∀命令を覆うために31:7に�
               input logic [2:0] immsrc,
               output logic [31:0] immext);
 
+//always_combは組合せ回路；つまりフィードバックのない；マッピング関数を意味するとコンパイラに伝える文法
     always_comb
         case(immsrc)
             3'b000: immext = { {20{instr[31]}},instr[31:20]}; // I-type, 12bit extend, +-を判定して分岐できるようにinstr[31]
