@@ -12,8 +12,7 @@
 
 module singnal_controller(
     input [6:0] opcode,
-    input ZERO, // ZERO : for branch judge
-    input Jump,
+    output Jump,
     output pc_src, 
     output read_ram_src, // = result_src
     output mem_write,
@@ -21,6 +20,8 @@ module singnal_controller(
     output [2:0] imm_src,
     output reg_write,
     output [1:0] alu_op,
+
+    output IS_Utype,
     ); // ZERO : for branch judge
     /*
     alu_opの説明：
@@ -28,6 +29,7 @@ module singnal_controller(
     01 ... 分岐用のaddsub
     10 ... functのビットで判断 
     */
+
     begin 
         case(opcode)
             7'b0000011: begin // 3: I-type: load 
@@ -128,7 +130,8 @@ module singnal_controller(
                 imm_src = 3'b100; // U-type, <<12bit extend ... READMEに議論書いてある。
                 reg_write = 1'b1; 
                 Jump = 1'b0;
-                alu_op = 2'b00; // loadタイプ
+                alu_op = 2'b00; //TODO
+                IS_Utype = 1'b1; 
                 //! U形式funct3すらないからどうするんだ？00渡してもfunct3ないから+-判定できないぞ
                 // わんちゃんALU使わないパターン
             end 
@@ -152,6 +155,5 @@ module singnal_controller(
                 Jump = 1'bx; // 未定義動作！
             end
         endcase
-        assign pc_src = is_branch & ZERO | Jump; // beginの内？外？
     end
 endmodule
