@@ -16,12 +16,13 @@ module singnal_controller(
     output pc_src, 
     output read_ram_src, // = result_src
     output mem_write,
-    output alu_src, 
+    output alu_src, //TODO : Utype拡張したので２ビットMuxに拡張.このMuxによって全てを決めてる.
     output [2:0] imm_src,
     output reg_write,
     output [1:0] alu_op,
 
     output IS_Utype,
+    output IS_lui,
     ); // ZERO : for branch judge
     /*
     alu_opの説明：
@@ -130,10 +131,10 @@ module singnal_controller(
                 imm_src = 3'b100; // U-type, <<12bit extend ... READMEに議論書いてある。
                 reg_write = 1'b1; 
                 Jump = 1'b0;
-                alu_op = 2'b00; //TODO
+                alu_op = 2'bxx; 
                 IS_Utype = 1'b1; 
-                //! U形式funct3すらないからどうするんだ？00渡してもfunct3ないから+-判定できないぞ
-                // わんちゃんALU使わないパターン
+                IS_lui = 1'b0;
+                // Utype is 本来のALU使わない
             end 
             7'b0110111: begin // 55: U-type: lui :rd = {upimm , 12'b0}
                 is_branch = 1'b0; // next is pc+4
@@ -143,16 +144,18 @@ module singnal_controller(
                 imm_src = 3'b100; 
                 reg_write = 1'b1; 
                 Jump = 1'b0;
-                alu_op = 2'b00; // loadタイプ
+                alu_op = 2'bxx; 
+                IS_Utype = 1'b1;
+                IS_lui = 1'b1;
             end 
             default: begin
-                is_branch = 1'bx; 
-                read_ram_src = 1'bx; // don't care 
-                mem_write = 1'bx;
-                alu_src = 1'bx;
-                imm_src = 3'bxxx; // don't care
-                reg_write = 1'bx; 
-                Jump = 1'bx; // 未定義動作！
+                is_branch = 1'b0; 
+                read_ram_src = 1'b0; 
+                mem_write = 1'b0;
+                alu_src = 1'b0;
+                imm_src = 3'000; 
+                reg_write = 1'b0; 
+                Jump = 1'b0; // 未定義動作！
             end
         endcase
     end

@@ -15,12 +15,16 @@ module decoder(
     output alu_src,
     output [2:0] imm_src, 
     output reg_write,
-    output IS_Utype); 
+    output IS_Utype,
+    output IS_lui,
+    ); 
     // alu_ctrl = mode in ALU32
 
     // --- def wire --- //
 
     wire Jump ; //ここのモジュールで生成するのを明示するためにwireと書いてる。書かなくてもどっちでも良い。
+    wire IS_Utype;
+    wire IS_lui;
     
 
     // opcode で形式（分割の仕方を判定）
@@ -34,6 +38,7 @@ module decoder(
         .imm_src(imm_src),
         .reg_write(reg_write),
         .IS_Utype(IS_Utype),
+        .IS_lui(IS_lui),
     );
 
     inst_decoder idec(
