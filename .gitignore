@@ -4,4 +4,4 @@
 
 *.out
 local.txt
-/taichi/*
+/taichi

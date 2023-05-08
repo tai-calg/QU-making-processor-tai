@@ -83,7 +83,7 @@ module top_test;
         CDLL = 0;
         CDSL = 0;
 
-        //*** reset ***//
+        //*** reset ... ネガティブでリセット実行***//
         rst = 1'b1;
         #1 rst = 1'b0;
         #CYCLE rst = 1'b1;

@@ -1,8 +1,8 @@
 module mux(
-    input logic [31:0] A,
-    input logic [31:0] B,
-    input logic  sel,
-    output logic [31:0] X
+    input wire [31:0] A,
+    input wire [31:0] B,
+    input wire  sel,
+    output wire [31:0] X
 );
 
 
@@ -19,22 +19,23 @@ module mux(
 endmodule
 
 module mux2(
-    input logic [31:0] A,
-    input logic [31:0] B,
-    input logic [31:0] C,
-    input logic [31:0] D,
-    input logic [1:0] sel,     
-    output logic [31:0] X
+    input wire [31:0] A,
+    input wire [31:0] B,
+    input wire [31:0] C,
+    input wire [31:0] D,
+    input wire [1:0] sel,     
+    output wire [31:0] X
 );
     
-    always @ (sel) begin  
-        case (sel)  
-            2'b00 : out <= a;  
-            2'b01 : out <= b;  
-            2'b10 : out <= c;  
-            2'b11 : out <= d;  
-        endcase  
-    end  
+    // always @ (sel) begin  
+    //     case (sel)  
+    //         2'b00 : out <= a;  
+    //         2'b01 : out <= b;  
+    //         2'b10 : out <= c;  
+    //         2'b11 : out <= d;  
+    //     endcase  
+    // end  
+    assign X = (sel == 2'b00) ? A : (sel == 2'b01) ? B : (sel == 2'b10) ? C : D;
 endmodule
 
 

@@ -5,7 +5,7 @@ module main ();
     reg [31:0] a;
     reg [31:0] b;
     wire [31:0] x;
-    reg [2:0] mode;
+    reg [3:0] mode;
 
     ALU alu32_0 (.A(a), .B(b), .mode(mode), .X(x));
 
