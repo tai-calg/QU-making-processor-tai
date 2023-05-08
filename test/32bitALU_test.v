@@ -7,7 +7,7 @@ module main ();
     wire [31:0] x;
     reg [2:0] mode;
 
-    ALU32 alu32_0 (.A(a), .B(b), .mode(mode), .X(x));
+    ALU alu32_0 (.A(a), .B(b), .mode(mode), .X(x));
 
     initial begin
         $dumpvars;

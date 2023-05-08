@@ -1,7 +1,7 @@
 // 教科書p192 and 262
-module extend(input logic [31:7] instr , // ∀命令を覆うために31:7にしている 
-              input logic [2:0] immsrc,
-              output logic [31:0] immext);
+module extend(input wire [31:7] instr , // ∀命令を覆うために31:7にしている ...この書き方やってもいいよね？
+              input wire [2:0] immsrc,
+              output wire [31:0] immext);
 
 //always_combは組合せ回路；つまりフィードバックのない；マッピング関数を意味するとコンパイラに伝える文法
     always_comb

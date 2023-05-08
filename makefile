@@ -1,4 +1,4 @@
-LIBRARY :=  ALU/32bitALU.v \
+LIBRARY :=  ALU/ALU.v \
 
 TEST := test/32bitALU_test.vvp \
 

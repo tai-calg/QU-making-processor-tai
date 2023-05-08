@@ -4,4 +4,4 @@
 
 *.out
 local.txt
-/riscv-ex/*
+/taichi/*

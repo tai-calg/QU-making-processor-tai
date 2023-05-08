@@ -1,9 +1,9 @@
-module ALU32(    
+module ALU(    
     input unsigned [31:0] A,
     input unsigned [31:0] B,
-    input [2:0] mode,
-    output[31:0] X,
-    output ZERO,
+    input wire [2:0] mode,
+    output wire [31:0] X,
+    output wire ZERO,
     );
 
 
@@ -13,8 +13,8 @@ module ALU32(
 
     begin
         case(mode)
-            4'b0000: X = A + B;           // Add
-            4'b0001: begin               // Subtract
+            4'b0000: X = A + B;           // Add overflow無視
+            4'b0001: begin               // Subtract overflow無視
                 X = A - B;
                 assign ZERO = (X == 0) ? 1 : 0;
             end         // Subtract

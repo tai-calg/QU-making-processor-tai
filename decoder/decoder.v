@@ -1,7 +1,9 @@
 /*
+import singnal_controller
+import inst_decoder
+
 decoderといってもメインデコーダーとALUデコーダーにわけられる。
 メインでopを消費して、ALUでfunct3, funct7を消費する。
-
 */
 
 module decoder(
@@ -32,7 +34,7 @@ module decoder(
         .opcode(inst[6:0]),
         .Jump(Jump),
         .pc_src(pc_src),
-        .read_ram_src(result_src),
+        .result_src(result_src),
         .mem_write(mem_write),
         .alu_src(alu_src),
         .imm_src(imm_src),
