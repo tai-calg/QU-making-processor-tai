@@ -124,8 +124,10 @@
     //*** description for wave form ***//
     initial begin
         $monitor($stime," PC=%h", IAD);   // PC の値を monitor する．
-        $shm_open("waves.shm");
-        $shm_probe("AS");
+        // $shm_open("waves.shm"); //verilog XL の場合
+        // $shm_probe("AS"); 
+        $dumpfile("dump.vcd"); //mac (Icarus)の場合
+        $dumpvars(0, u_top_1); //mac (Icarus)の場合
     end
 
 
@@ -263,7 +265,7 @@
           Reg_data = $fopen("./Reg_out.dat");  // Reg_out.dat を開く
           for (i =0; i < 32; i = i+1)          // レジスタの内容を Reg_out.dat 出力
             begin
-              Reg_temp = u_top_1.u_rf32x32.u_DW_ram_2r_w_s_dff.mem >> (BIT_WIDTH * i);
+              Reg_temp = u_top_1.datapath.rf.u_DW_ram_2r_w_s_dff.mem >> (BIT_WIDTH * i);
               $fwrite(Reg_data, "%d:%h\n", i, Reg_temp);
             end
           $fclose(Reg_data);

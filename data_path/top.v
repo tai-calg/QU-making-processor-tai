@@ -23,7 +23,7 @@ module top (
     input clk, rst,
     input  ACKD_n, ACKI_n, //俺たちが使う時ある…？
     input [31:0] IDT,
-    input [31:0] OINT_n,
+    input [2:0] OINT_n,
 
     output [31:0] IAD, DAD,
     output MREQ, WRITE, // load or store
