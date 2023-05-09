@@ -1,5 +1,5 @@
 /*
-    singnal_controller asig(
+    signal_controller asig(
         .opcode(inst[6:0]),
         .pc_src(pc_src),
         .result_src(result_src),
@@ -10,11 +10,10 @@
     )
 */
 
-module singnal_controller(
+module signal_controller(
     input [6:0] opcode,
 
     output reg Jump,
-    output reg pc_src, 
     output reg [1:0] result_src, 
     output reg mem_write,
     output reg alu_src, 
@@ -22,7 +21,7 @@ module singnal_controller(
     output reg reg_write,
     output reg [1:0] alu_op,
     output reg mreq,
-    output reg is_branch,
+    output reg is_branch, 
     output reg IS_Utype,
     output reg IS_lui); 
     

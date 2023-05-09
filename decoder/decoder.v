@@ -8,6 +8,8 @@ decoderといってもメインデコーダーとALUデコーダーにわけら�
 メインでopを消費して、ALUでfunct3, funct7を消費する。
 */
 
+
+
 module decoder(
     // input clk, rst, 
     input [31:0] inst,
@@ -36,11 +38,10 @@ module decoder(
     
 
     // opcode で形式（分割の仕方を判定）
-    singnal_controller asig(
+    signal_controller asig(
         .opcode(inst[6:0]),
 
         .Jump(Jump),
-        .pc_src(pc_src),
         .result_src(result_src),
         .mem_write(mem_write),
         .alu_src(alu_src),

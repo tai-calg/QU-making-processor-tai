@@ -27,10 +27,9 @@ https://tex2e.github.io/blog/makefile/automatic-variables
 
 ## TODO
 
-1. Utype配線の設計
-
-比較器とUtype処理演算器は別に作ろう。
-比較器は処理が2回になるため。Utypeはfunct{3,7}がないため。
+//シミュレーションをみると、hello.dsの100e8のret命令で100d8にもどってこの間を無限ループしてる
+これの原因解析。
+myputs()にて発生。
 
 ## 疑問点
 
@@ -40,6 +39,8 @@ https://tex2e.github.io/blog/makefile/automatic-variables
 
 今のALUは全て１クロックで完了するようにしてるのだけれど、もしこれを拡張したらALUが遅くなってしまうのでは…
 パイプライン最適化のためにも汎用ALUは１クロックに収めたい
+
+ALUを簡単にするため４ビットのALU_OPを使っているが、A-Bをゼロフラグで判定して、ブランチするかどうかに使う代わりにA==Bを実装してしまったので
 
 
 
@@ -54,5 +55,3 @@ https://tex2e.github.io/blog/makefile/automatic-variables
 とりあえず１で実装してみる. immsrc=100の時Utype。
 
 ## 文法
-
-always_comb : pubsubのように信号線に変化があったら処理を行う。

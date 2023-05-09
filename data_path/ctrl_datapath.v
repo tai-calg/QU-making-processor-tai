@@ -7,6 +7,8 @@
  import data_path/pc_ff
  
  */
+
+
  
  // catch decoder output and connect to other components. then control all arthitecture.
  // all outputs are for memory.

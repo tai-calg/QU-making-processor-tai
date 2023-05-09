@@ -1,6 +1,5 @@
 /* 
 import decoder.v
-import rf32x32.v
 import ctrl_datapath.v
 
 
@@ -18,6 +17,7 @@ import ctrl_datapath.v
                .DDT(DDT) // data[31:0]
                );
 */
+
 
 module top (
     input clk, rst,
@@ -57,6 +57,13 @@ module top (
         .byte_size(SIZE),
         .mreq(MREQ) // 3 , 35だけload,store.
     );
+
+    assign WRITE = mem_write;
+    /*
+    {signal_controller}------->{ctrl_datapath}
+                         |
+                         |---->WRITE wire
+    */
 
     ctrl_datapath datapath(
         .clk(clk), .rst(rst),

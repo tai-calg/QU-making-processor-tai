@@ -23,12 +23,12 @@ module ALU(
             4'b0101: X = A << B;     // logical Shift left 
             4'b0110: X = A >> B;     // logical Shift right
             4'b0111: X = $signed(A) >>> $signed(B) ;  // arithmetic Shift right
-            4'b1000: X = A < B;     // Set on less than
-            4'b1001: X = A >= B;
-            4'b1010: X = A == B;
-            4'b1011: X = A != B;
-            4'b1100: X = $signed(A) < $signed(B);
-            4'b1101: X = $signed(A) >= $signed(B);
+            4'b1000: X = ~(A < B);     // Set on less than
+            4'b1001: X = ~(A >= B);
+            // 4'b1010: X = A == B;
+            4'b1011: X = ~(A != B);//bne 違えばゼロフラグが１になる。
+            4'b1100: X = ~($signed(A) < $signed(B));//blt
+            4'b1101: X = ~($signed(A) >= $signed(B));
 
         endcase
 

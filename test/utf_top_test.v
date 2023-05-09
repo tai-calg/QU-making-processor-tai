@@ -1,6 +1,7 @@
 // import top.v
 // import Imem.dat
 // import Dmem.dat
+
   `timescale 1ns/1ps
   `define IN_TOTAL 10000  // 最大シミュレーション時間 = 10000 クロックサイクル
 
@@ -101,6 +102,11 @@
             begin
 
               Iaddr = u_top_1.IAD;  // 命令メモリアクセスアドレスを Iaddr に格納
+              // if not xxx
+              // if (Iaddr != 0) begin 
+              //   $display("Iaddr = %h", Iaddr);  // 命令メモリアクセスアドレスを表示
+              //   $display("DATA_Imem",DATA_Imem[Iaddr]);
+              // end
               fetch_task1;          //fn: 命令メモリから命令をフェッチ
 
               Daddr = u_top_1.DAD;  // データメモリアクセスアドレス Daddr に格納
