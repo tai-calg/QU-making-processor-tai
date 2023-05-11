@@ -9,6 +9,7 @@ TEST :=  test/utf_top_test.vvp
 
 
 all : $(TEST)
+	
 
 clean: 
 	rm -rf test/*.vvp

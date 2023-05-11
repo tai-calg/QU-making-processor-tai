@@ -122,7 +122,7 @@ module signal_controller(
             end
             7'b1101111: begin // 111: J-type: jal
                 is_branch <= 1'b0; 
-                result_src <= 2'bxx; // don't care. becase don't use ALU
+                result_src <= 2'b10; // x[rd] = pc + 4
                 mem_write <= 1'b0;
                 alu_src <= 1'bx;
                 imm_src <= 3'b011; // 21bit extend 

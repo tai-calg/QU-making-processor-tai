@@ -26,7 +26,7 @@ module rf32x32(
    //*** I/O declarations ***//
    input                          clk;       // clock
    input 			  reset;
-   input                          wr_n;      // Write enable, active low
+   input                          wr_n;      // Write enable, //! active low!!!!
    input  [bit_width_depth-1 : 0] rd1_addr;  // Read0 address bus  
    input  [bit_width_depth-1 : 0] rd2_addr;  // Read1 address bus
    input  [bit_width_depth-1 : 0] wr_addr;   // Write address bus

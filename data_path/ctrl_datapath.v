@@ -19,7 +19,7 @@
    input wire [1:0] result_src,
    input wire [2:0] imm_src,
    input wire [3:0] alu_ctrl,
-   input wire mem_write,reg_write,
+   input wire reg_write,
    input wire IS_Utype,IS_lui,
 
 
@@ -31,6 +31,7 @@
 
    wire [31:0] result, pc_next, pcplus4;
    wire [31:0] rd1, srcB, immExt, pcplusImm, u_out;
+   // wire [31:0] DAD;
 
 
    pc_ff pcff( //#(CYCLE) サイクルいる？ここまでCYCLE持ってくるの？
@@ -48,7 +49,7 @@
 
    rf32x32 rf(
       .clk(clk), .reset(rst),
-      .wr_n(reg_write),
+      .wr_n(~reg_write),// wr_n はLowで書き込み！
       .rd1_addr(inst[19:15]), .rd2_addr(inst[24:20]), .wr_addr(inst[11:7]),
       .data_in(result), //feed back
       
@@ -57,6 +58,7 @@
    mux mux_src(rd2,immExt,alu_src,srcB);
 
    ALU alu(rd1, srcB, alu_ctrl, alu_out, ZERO);
+   // assign DAD = alu_out;
 
    utype_alu u_alu(.imm20(immExt), .pc(pc), .IS_lui(IS_lui), .IS_Utype(IS_Utype)
    , .result(u_out)); 

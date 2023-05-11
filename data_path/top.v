@@ -73,7 +73,7 @@ module top (
         .result_src(result_src),
         .alu_ctrl(alu_ctrl),
         .imm_src(imm_src),
-        .mem_write(mem_write),
+        // .mem_write(mem_write),
         .reg_write(reg_write),
         .IS_Utype(IS_Utype),
         .IS_lui(IS_lui),
@@ -83,6 +83,7 @@ module top (
         .rd2(DDT),
         .alu_out(DAD)
     );
+    // assign DAD = ;
 
 
 endmodule
