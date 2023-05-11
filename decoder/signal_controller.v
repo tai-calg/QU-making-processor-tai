@@ -1,14 +1,3 @@
-/*
-    signal_controller asig(
-        .opcode(inst[6:0]),
-        .pc_src(pc_src),
-        .result_src(result_src),
-        .mem_write(mem_write),
-        .alu_src(alu_src),
-        .imm_src(imm_src),
-        .reg_write(reg_write)
-    )
-*/
 
 module signal_controller(
     input [6:0] opcode,
@@ -53,7 +42,7 @@ module signal_controller(
                 imm_src <= 3'b000; // I-type, 12bit extend
                 reg_write <= 1'b1; 
                 Jump <= 1'b0;
-                alu_op <= 2'b10; // funct3 and funct7
+                alu_op <= 2'b11; // funct3 and funct7
                 mreq <= 1'b0;
             end
             // 7'b0011011: begin // 27: I-type, immidiate word(only "addiw")

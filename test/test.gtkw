@@ -1,0 +1,33 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Thu May 11 06:30:27 2023
+[*]
+[dumpfile] "/Users/taniguchitaichi/development/processorDev/test/dump.vcd"
+[dumpfile_mtime] "Thu May 11 06:02:31 2023"
+[dumpfile_size] 14660371
+[savefile] "/Users/taniguchitaichi/development/processorDev/test/test.gtkw"
+[timestart] 212640
+[size] 1794 1027
+[pos] 655 -1081
+*-14.000000 286690 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top_test.
+[treeopen] top_test.u_top_1.
+[sst_width] 193
+[signals_width] 235
+[sst_expanded] 1
+[sst_vpaned_height] 317
+@22
+top_test.u_top_1.IAD[31:0]
+top_test.u_top_1.IDT[31:0]
+top_test.u_top_1.datapath.rd1[31:0]
+top_test.u_top_1.datapath.rd2[31:0]
+top_test.u_top_1.datapath.srcB[31:0]
+top_test.u_top_1.DAD[31:0]
+top_test.u_top_1.DDT[31:0]
+top_test.u_top_1.datapath.ReadDDT[31:0]
+@23
+top_test.u_top_1.datapath.result[31:0]
+@28
+top_test.u_top_1.MREQ
+[pattern_trace] 1
+[pattern_trace] 0

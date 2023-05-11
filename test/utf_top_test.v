@@ -104,8 +104,8 @@
               Iaddr = u_top_1.IAD;  // 命令メモリアクセスアドレスを Iaddr に格納
               // if not xxx
               // if (Iaddr != 0) begin 
-              //   $display("Iaddr = %h", Iaddr);  // 命令メモリアクセスアドレスを表示
-              //   $display("DATA_Imem",DATA_Imem[Iaddr]);
+                // $display("Iaddr = %h", Iaddr);  // 命令メモリアクセスアドレスを表示
+                // $display("DATA_Imem",DATA_Imem[Iaddr]);
               // end
               fetch_task1;          //fn: 命令メモリから命令をフェッチ
 
@@ -228,6 +228,11 @@
                           DATA_Dmem[Daddr+1] = DDT[BIT_WIDTH-9:BIT_WIDTH-16];    //  データメモリへの書き込み（word）
                           DATA_Dmem[Daddr+2] = DDT[BIT_WIDTH-17:BIT_WIDTH-24];   //
                           DATA_Dmem[Daddr+3] = DDT[BIT_WIDTH-25:BIT_WIDTH-32];   //
+                          $display("Dmem[%h] = %h", Daddr, DATA_Dmem[Daddr]);    // データメモリへの書き込み内容を表示
+                          $display("Dmem[%h] = %h", Daddr+1, DATA_Dmem[Daddr+1]);
+                          $display("Dmem[%h] = %h", Daddr+2, DATA_Dmem[Daddr+2]);
+                          $display("Dmem[%h] = %h", Daddr+3, DATA_Dmem[Daddr+3]);
+                          $display("---------------------------------");
                       end
                     else if(SIZE == 2'b01)
                       begin
@@ -264,6 +269,7 @@
           Dmem_data = $fopen("./Dmem_out.dat");  // Dmem_out.dat を開く
           for (i = 0; i <= Max_Daddr && i < DMEM_SIZE; i = i+4)  // データメモリの内容（アドレス 0 ～ Max_Daddr）を Dmem_out.dat に出力
             begin
+              // $display(Dmem_data,"Dmem[%h] = %h %h %h %h", i, DATA_Dmem[i], DATA_Dmem[i+1], DATA_Dmem[i+2], DATA_Dmem[i+3]); 
               $fwrite(Dmem_data, "%h :%h %h %h %h\n", i, DATA_Dmem[i], DATA_Dmem[i+1], DATA_Dmem[i+2], DATA_Dmem[i+3]);
             end
           $fclose(Dmem_data);  // Dmem_out.dat を閉じる

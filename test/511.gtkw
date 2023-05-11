@@ -1,0 +1,45 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Thu May 11 11:03:37 2023
+[*]
+[dumpfile] "/Users/taniguchitaichi/development/processorDev/test/dump.vcd"
+[dumpfile_mtime] "Thu May 11 10:57:01 2023"
+[dumpfile_size] 667580
+[savefile] "/Users/taniguchitaichi/development/processorDev/test/511.gtkw"
+[timestart] 0
+[size] 1333 844
+[pos] 843 -1069
+*-14.000000 56850 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top_test.
+[treeopen] top_test.u_top_1.
+[treeopen] top_test.u_top_1.datapath.
+[treeopen] top_test.u_top_1.dec.
+[sst_width] 193
+[signals_width] 235
+[sst_expanded] 1
+[sst_vpaned_height] 490
+@22
+top_test.u_top_1.IAD[31:0]
+top_test.u_top_1.IDT[31:0]
+top_test.u_top_1.datapath.rd1[31:0]
+top_test.u_top_1.datapath.rd2[31:0]
+top_test.u_top_1.datapath.srcB[31:0]
+top_test.u_top_1.DAD[31:0]
+top_test.u_top_1.DDT[31:0]
+top_test.u_top_1.datapath.ReadDDT[31:0]
+top_test.u_top_1.datapath.result[31:0]
+@28
+top_test.u_top_1.MREQ
+@22
+top_test.u_top_1.datapath.rf.rd1_addr[4:0]
+top_test.u_top_1.datapath.rf.rd2_addr[4:0]
+top_test.u_top_1.datapath.rf.wr_addr[4:0]
+top_test.u_top_1.datapath.rf.data_in[31:0]
+top_test.u_top_1.datapath.rf.data1_out[31:0]
+@23
+top_test.u_top_1.datapath.rf.data2_out[31:0]
+@28
+top_test.u_top_1.datapath.rf.wr_n
+top_test.u_top_1.datapath.rf.clk
+[pattern_trace] 1
+[pattern_trace] 0

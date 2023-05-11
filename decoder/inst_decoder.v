@@ -63,6 +63,23 @@ module inst_decoder(
                     3'b111: alu_ctrl <= 4'b0010; // AND 
                 endcase
             end
+            2'b11: begin // addi (I-type:19系)
+                case (funct3)
+                    3'b000: alu_ctrl <= 4'b0000; // ADDI
+                    3'b001: alu_ctrl <= 4'b0101; // <<
+                    3'b010: alu_ctrl <= 4'b1100; // signed <
+                    3'b011: alu_ctrl <= 4'b1000; //  <
+                    3'b100: alu_ctrl <= 4'b0100; // XORI
+                    3'b101: begin // SRLI/SRAI
+                        if (funct7b5 == 1'b0)
+                            alu_ctrl <= 4'b0110; // SRLI
+                        else if (funct7b5 == 1'b1)
+                            alu_ctrl <= 4'b0111; // SRAI
+                    end
+                    3'b110: alu_ctrl <= 4'b0011; // ORI
+                    3'b111: alu_ctrl <= 4'b0010; // ANDI
+                endcase
+            end
             default: begin
                 alu_ctrl = 4'bxxxx;
             end
