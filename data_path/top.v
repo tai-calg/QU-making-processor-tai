@@ -39,6 +39,7 @@ module top (
     wire [2:0] imm_src;
     wire [3:0] alu_ctrl;
     wire IS_lui,IS_Utype,mem_write,reg_write,pc_src,alu_src;
+    wire [31:0] rd2;
 
     decoder dec(
         // .clk(clk), .rst(rst), マルチだとデコーダーもタイミングを合わせるために同期する
@@ -80,10 +81,11 @@ module top (
 
         .ZERO(ZERO),
         .pc(IAD),
-        .rd2(DDT),
+        .rd2(rd2), //変更：(DDT) → (rd2)
         .alu_out(DAD)
     );
     // assign DAD = ;
+    assign DDT = WRITE ? rd2 : 32'hz; //! 正しい？
 
 
 endmodule
