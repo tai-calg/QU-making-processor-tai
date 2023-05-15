@@ -3,6 +3,7 @@
 # !*.*
 
 *.out
-*.vcd
+test/*.vcd
+test/*.vvp
 local.txt
 /taichi
