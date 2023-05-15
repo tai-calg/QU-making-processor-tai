@@ -3,10 +3,12 @@ hello.lo:     file format elf32-littleriscv
 
 
 Disassembly of section .text:
-
+0xff0000 means jump
+0xffff00 means arrive
+ 
 00010000 <_start>:
    10000:	08030137          	lui	sp,0x8030
-   10004:	010000ef          	jal	ra,10014 <main>
+   10004:	010000ef          	jal	ra,10014 <main> 0xff0000 
    10008:	ff0002b7          	lui	t0,0xff000
    1000c:	00028023          	sb	zero,0(t0) # ff000000 <__bss_end+0xf6fefff0>
 
@@ -14,13 +16,13 @@ Disassembly of section .text:
    10010:	0000006f          	j	10010 <FOREVER_LOOP>
 
 00010014 <main>:
-   10014:	ff010113          	addi	sp,sp,-16 # 802fff0 <__bss_end+0x1ffe0>
+   10014:	ff010113          	addi	sp,sp,-16 # 802fff0 <__bss_end+0x1ffe0>0xffff00
    10018:	00112623          	sw	ra,12(sp)
    1001c:	00812423          	sw	s0,8(sp)
    10020:	01010413          	addi	s0,sp,16
    10024:	080107b7          	lui	a5,0x8010
    10028:	00078513          	mv	a0,a5
-   1002c:	054000ef          	jal	ra,10080 <myputs> //_start →main→here→myputs→retで無限ループ
+   1002c:	054000ef          	jal	ra,10080 <myputs> 0xff0000//_start →main→here→myputs→retで無限ループ
    10030:	ff0007b7          	lui	a5,0xff000
    10034:	0007a023          	sw	zero,0(a5) # ff000000 <__bss_end+0xf6fefff0>
    10038:	00000793          	li	a5,0
@@ -45,13 +47,13 @@ Disassembly of section .text:
    1007c:	00008067          	ret
 
 00010080 <myputs>:
-   10080:	fd010113          	addi	sp,sp,-48
+   10080:	fd010113          	addi	sp,sp,-48 0xfff000
    10084:	02112623          	sw	ra,44(sp)
    10088:	02812423          	sw	s0,40(sp)
    1008c:	03010413          	addi	s0,sp,48
    10090:	fca42e23          	sw	a0,-36(s0)
    10094:	fe042623          	sw	zero,-20(s0)
-   10098:	0280006f          	j	100c0 <myputs+0x40> //! jump to 100c0
+   10098:	0280006f          	j	100c0 <myputs+0x40> 0xff0000//! jump to 100c0
    1009c:	fec42783          	lw	a5,-20(s0)
    100a0:	fdc42703          	lw	a4,-36(s0)
    100a4:	00f707b3          	add	a5,a4,a5
@@ -61,7 +63,7 @@ Disassembly of section .text:
    100b4:	fec42783          	lw	a5,-20(s0) 
    100b8:	00178793          	addi	a5,a5,1
    100bc:	fef42623          	sw	a5,-20(s0)
-   100c0:	fec42783          	lw	a5,-20(s0) // jump to here 
+   100c0:	fec42783          	lw	a5,-20(s0) 0xffff00// jump to here 
    100c4:	fdc42703          	lw	a4,-36(s0)
    100c8:	00f707b3          	add	a5,a4,a5
    100cc:	0007c783          	lbu	a5,0(a5)
@@ -71,7 +73,7 @@ Disassembly of section .text:
    100dc:	02c12083          	lw	ra,44(sp)
    100e0:	02812403          	lw	s0,40(sp)
    100e4:	03010113          	addi	sp,sp,48
-   100e8:	00008067          	ret //! jump to 100d4：無限ループ
+   100e8:	00008067          	ret 0xff0000//! jump to 100d4：無限ループ
 
 Disassembly of section .data:
 

@@ -16,7 +16,7 @@ module ALU(
             4'b0000: X = $signed(A) + $signed(B);           // Add overflow無視 // ここsignedだよね。でもunsignedな加算をしたい時はないのかな
             4'b0001: begin               // Subtract overflow無視
                 X = $signed(A) - $signed(B);
-                assign ZERO = (X == 0) ;
+                ZERO = (X == 0) ;
             end         // Subtract
             4'b0010: X = A & B;           // Bitwise AND
             4'b0011: X = A | B;           // Bitwise OR
@@ -25,22 +25,22 @@ module ALU(
             4'b0110: X = A >> B;     // logical Shift right
             4'b0111: X = $signed(A) >>> $signed(B) ;  // arithmetic Shift right
             4'b1000: begin 
-                X = (A < B);     // Set on less than
-                assign ZERO = X; // assign pc_src = is_branch & ZERO | Jump;より。
+                X = (A < B);    // Set on less than
+                ZERO = X; // pc_src = is_branch & ZERO | Jump;より。
             end
             4'b1001: X = (A >= B);
             // 4'b1010: X = A == B;
             4'b1011: begin//bne 違えばゼロフラグが１になる。
                 X = (A != B);
-                assign ZERO = X;
+                ZERO = X;
             end
             4'b1100: begin //
                 X = ($signed(A) < $signed(B));//blt
-                assign ZERO = X;
+                ZERO = X;
             end
             4'b1101: begin//
                 X = ($signed(A) >= $signed(B));
-                assign ZERO = X;
+                ZERO = X;
             end
 
         endcase

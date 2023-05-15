@@ -4,7 +4,7 @@ LIBRARY :=  ALU/ALU.v  ALU/adder.v  ALU/extend.v  ALU/utype_alu.v \
 	modules/rf32x32.v modules/DW_ram_2r_w_s_dff.v \
 	other/mux.v
 
-TEST :=  test/utf_top_test.vvp 
+TEST :=  test/top_test.vvp 
 # test/32bitALU_test.vvp
 
 

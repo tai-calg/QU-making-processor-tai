@@ -88,13 +88,8 @@ top.vに
 ```
    100c8:	00f707b3          	add	a5,a4,a5
    100cc:	0007c783          	lbu	a5,0(a5)
-   100d0:	fc0796e3          	bnez	a5,1009c <myputs+0x1c>
+   100d0:	**fc0796e3**          	bnez	a5,1009c <myputs+0x1c>
    100d4:	fec42783          	lw	a5,-20(s0) //! back to here
    100d8:	00078513          	mv	a0,a5
 ```
 bnezで止まっているので、その前後あたりの信号線をみて解決を図る
-
-
-       200 PC=000100cc
-       210 PC=000100d0
-       220 PC=000100XX

@@ -2,6 +2,8 @@
 // import Imem.dat
 // import Dmem.dat
 
+//! DON'T USE THIS FILE !!! (deplicated!!!)
+
   `timescale 1ns/1ps
   `define IN_TOTAL 10000  // 最大シミュレーション時間 = 10000 クロックサイクル
 
@@ -228,10 +230,11 @@
                           DATA_Dmem[Daddr+1] = DDT[BIT_WIDTH-9:BIT_WIDTH-16];    //  データメモリへの書き込み（word）
                           DATA_Dmem[Daddr+2] = DDT[BIT_WIDTH-17:BIT_WIDTH-24];   //
                           DATA_Dmem[Daddr+3] = DDT[BIT_WIDTH-25:BIT_WIDTH-32];   //
-                          $display("Dmem[%h] = %h", Daddr, DATA_Dmem[Daddr]);    // データメモリへの書き込み内容を表示
-                          $display("Dmem[%h] = %h", Daddr+1, DATA_Dmem[Daddr+1]);
-                          $display("Dmem[%h] = %h", Daddr+2, DATA_Dmem[Daddr+2]);
-                          $display("Dmem[%h] = %h", Daddr+3, DATA_Dmem[Daddr+3]);
+                          $display("write to memory");
+                          $display("Dmem[%h] = %h", Daddr, DDT[BIT_WIDTH-1:BIT_WIDTH-8]);    // データメモリへの書き込み内容を表示
+                          $display("Dmem[%h] = %h", Daddr+1, DDT[BIT_WIDTH-9:BIT_WIDTH-16]);  //
+                          $display("Dmem[%h] = %h", Daddr+2, DDT[BIT_WIDTH-17:BIT_WIDTH-24]); // );
+                          $display("Dmem[%h] = %h", Daddr+3, DDT[BIT_WIDTH-25:BIT_WIDTH-32]); // );
                           $display("---------------------------------");
                       end
                     else if(SIZE == 2'b01)
@@ -278,7 +281,7 @@
           for (i =0; i < 32; i = i+1)          // レジスタの内容を Reg_out.dat 出力
             begin
               Reg_temp = u_top_1.datapath.rf.u_DW_ram_2r_w_s_dff.mem >> (BIT_WIDTH * i);
-              $fwrite(Reg_data, "%d:%h\n", i, Reg_temp);
+              $fwrite(Reg_data, "x%d:%h\n", i, Reg_temp);
             end
           $fclose(Reg_data);
         end
