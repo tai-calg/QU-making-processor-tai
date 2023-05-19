@@ -25,7 +25,8 @@ module decoder(
     output IS_Utype,
     output IS_lui,
     output [1:0] byte_size,
-    output mreq); 
+    output mreq
+    ); 
     // alu_ctrl = mode in ALU32
 
     // --- def wire --- //
@@ -35,9 +36,13 @@ module decoder(
     wire IS_lui;
     wire is_branch;
     wire [1:0] alu_op;
+
     
 
     // opcode で形式（分割の仕方を判定）
+
+
+
     signal_controller asig(
         .opcode(inst[6:0]),
 
@@ -53,6 +58,7 @@ module decoder(
         .IS_Utype(IS_Utype),
         .IS_lui(IS_lui)
     );
+
 
     inst_decoder idec(
         .alu_op(alu_op),

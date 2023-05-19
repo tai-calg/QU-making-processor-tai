@@ -40,6 +40,7 @@ module top (
     wire [3:0] alu_ctrl;
     wire IS_lui,IS_Utype,mem_write,reg_write,pc_src,alu_src;
     wire [31:0] rd2;
+    wire pc_enable;
 
     decoder dec(
         // .clk(clk), .rst(rst), マルチだとデコーダーもタイミングを合わせるために同期する
@@ -66,6 +67,8 @@ module top (
                          |---->WRITE wire
     */
 
+
+
     ctrl_datapath datapath(
         .clk(clk), .rst(rst),
         .inst(IDT),.ReadDDT(DDT),
@@ -85,7 +88,7 @@ module top (
         .alu_out(DAD)
     );
     // assign DAD = ;
-    assign DDT = WRITE ? rd2 : 32'hz; //! 正しい？
+    assign DDT = MREQ ? rd2 : 32'hz; //!... WRITE ? からMREQ ? に変更。
 
 
 endmodule

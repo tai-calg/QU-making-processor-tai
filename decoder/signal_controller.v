@@ -1,3 +1,7 @@
+/*
+import load_wait;
+*/
+
 
 module signal_controller(
     input [6:0] opcode,
@@ -12,7 +16,8 @@ module signal_controller(
     output reg mreq,
     output reg is_branch, 
     output reg IS_Utype,
-    output reg IS_lui); 
+    output reg IS_lui
+    ); 
     
     // ZERO : for branch judge
     /*
@@ -21,6 +26,11 @@ module signal_controller(
     01 ... 分岐用のaddsub
     10 ... functのビットで判断 
     */
+
+        
+
+
+
     always @(opcode) begin 
         case(opcode)
             7'b0000011: begin // 3: I-type: load 
@@ -158,5 +168,8 @@ module signal_controller(
                 mreq <= 1'b0;
             end
         endcase
+
     end
+
+
 endmodule

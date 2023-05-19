@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-`define IN_TOTAL 1000000000
+`define IN_TOTAL 10000 //1000000000
 
 module top_test;
    
@@ -116,7 +116,7 @@ module top_test;
 
    //*** description for wave form ***//
    initial begin
-      $monitor($stime," PC=%h INST=%h", IAD, IDT);
+      // $monitor($stime," PC=%h INST=%h", IAD, IDT);
       //ここから2行はIcarus Verilog用(手元で動かすときに使ってください)
 	  $dumpfile("top_test.vcd");
       $dumpvars(0, u_top_1);
@@ -163,6 +163,7 @@ module top_test;
                      begin
                         force DDT[BIT_WIDTH-1:0] = {DATA_Dmem[Daddr], DATA_Dmem[Daddr + 1],
                                                     DATA_Dmem[Daddr + 2], DATA_Dmem[Daddr + 3]};
+
                      end
                    else if(SIZE == 2'b01)
                      begin
@@ -174,8 +175,7 @@ module top_test;
                         force DDT[BIT_WIDTH-1:0] = {{24{1'b0}}, DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b11} - Daddr[1:0]]};
                      end // else: !if(SIZE == 2'b01)
 
-                  $display("write to memory");
-                  $display("---------------------------------");
+
                    ACKD_n = 1'b0;
                    CDLL = 0;
 
@@ -238,6 +238,8 @@ module top_test;
                    
                    ACKD_n = 1'b0;
                    CDSL = 0;
+                   $display("Dmem[%h] = %h", Daddr, DDT[BIT_WIDTH-1:0]);
+
 
                 end // if (CDSL == DMEM_LATENCY)
               else
