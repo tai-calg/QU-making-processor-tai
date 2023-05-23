@@ -10,7 +10,6 @@ module ALU4 (A,B,cin,X,cout);
     wire [2:0] Ctemp;
 
     //mode
-    //TODO まだALU1が全加算機でしかないんで+しかできない
     // 0x00 : 0000 : +
     // 0x01 : 0001 : -
     // 0x02 : 0010 : &

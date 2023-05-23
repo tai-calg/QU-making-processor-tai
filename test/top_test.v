@@ -237,10 +237,10 @@ module top_test;
                              $write("%c", DDT[BIT_WIDTH-25:BIT_WIDTH-32]);
                           end
                         else
-                          begin
+                          begin // under8bit write : SIZE = 10
                              DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b11} - Daddr[1:0]] = DDT[BIT_WIDTH-25:BIT_WIDTH-32];
                           end
-                     end // else: !if(SIZE == 2'b01)
+                     end 
                    
                    ACKD_n = 1'b0;
                    CDSL = 0;
