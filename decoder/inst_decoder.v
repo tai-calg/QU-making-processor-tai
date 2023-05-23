@@ -50,13 +50,13 @@ module inst_decoder(
 
                     3'b001: alu_ctrl <= 4'b0101; // SLL
                     3'b010: alu_ctrl <= 4'b1100; // SLT signed <
-                    3'b011: alu_ctrl <= 4'b1100; // SLTU signed <
+                    3'b011: alu_ctrl <= 4'b1000; // SLTU  <
                     3'b100: alu_ctrl <= 4'b0100; // XOR
                     3'b101: begin // SRL/SRA
                         if (funct7b5 == 1'b0)
-                            alu_ctrl <= 4'b0110; // SRL (LSR)
+                            alu_ctrl <= 4'b0110; // srl
                         else if (funct7b5 == 1'b1)
-                            alu_ctrl <= 4'b0111; // SRA (ASR)
+                            alu_ctrl <= 4'b0111; // sra
                     end
 
                     3'b110: alu_ctrl <= 4'b0011; // OR 
@@ -66,9 +66,9 @@ module inst_decoder(
             2'b11: begin // addi (I-type:19系)
                 case (funct3)
                     3'b000: alu_ctrl <= 4'b0000; // ADDI
-                    3'b001: alu_ctrl <= 4'b0101; // <<
-                    3'b010: alu_ctrl <= 4'b1100; // signed <
-                    3'b011: alu_ctrl <= 4'b1000; //  <
+                    3'b001: alu_ctrl <= 4'b0101; // SLLI <<
+                    3'b010: alu_ctrl <= 4'b1100; // slti : signed <
+                    3'b011: alu_ctrl <= 4'b1000; // sltiu : <
                     3'b100: alu_ctrl <= 4'b0100; // XORI
                     3'b101: begin // SRLI/SRAI
                         if (funct7b5 == 1'b0)

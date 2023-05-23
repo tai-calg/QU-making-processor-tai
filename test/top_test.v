@@ -104,6 +104,12 @@ module top_test;
              // #(STB);
              #CYCLE;
              release DDT;
+             // rerurn if inst is xxxx
+               if (IDT == 32'hxxxxxxxx)
+                  begin
+                     $display("\nReach xxxx.");
+                     $finish;
+                  end
           end // for (i = 0; i < `IN_TOTAL; i =i +1)
 
         $display("\nReach IN_TOTAL.");
@@ -116,7 +122,7 @@ module top_test;
 
    //*** description for wave form ***//
    initial begin
-      // $monitor($stime," PC=%h INST=%h", IAD, IDT);
+      $monitor($stime," PC=%h INST=%h", IAD, IDT);
       //ここから2行はIcarus Verilog用(手元で動かすときに使ってください)
 	  $dumpfile("top_test.vcd");
       $dumpvars(0, u_top_1);

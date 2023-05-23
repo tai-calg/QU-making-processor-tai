@@ -71,7 +71,7 @@ module top (
 
     ctrl_datapath datapath(
         .clk(clk), .rst(rst),
-        .inst(IDT),.ReadDDT(DDT),
+        .inst(IDT),.ReadDDT(ReadDDT),
         .pc_src(pc_src),
         .alu_src(alu_src),
         .result_src(result_src),
@@ -88,6 +88,8 @@ module top (
         .alu_out(DAD)
     );
     // assign DAD = ;
+    wire [31:0] ReadDDT;
+    assign ReadDDT = DDT;
     assign DDT = MREQ ? rd2 : 32'hz; //!... WRITE ? からMREQ ? に変更。
 
 

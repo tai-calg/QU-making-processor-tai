@@ -4,6 +4,8 @@
 
 *.out
 test/*.vcd
+*.vcd
+*.vvp
 test/*.vvp
 local.txt
 /taichi
