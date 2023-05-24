@@ -24,6 +24,7 @@ module decoder(
     output reg_write,
     output IS_Utype,
     output IS_lui,
+    output IS_jalr,
     output [1:0] byte_size,
     output mreq
     ); 
@@ -32,8 +33,6 @@ module decoder(
     // --- def wire --- //
 
     wire Jump ; //ここのモジュールで生成するのを明示するためにwireと書いてる。書かなくてもどっちでも良い。
-    wire IS_Utype;
-    wire IS_lui;
     wire is_branch;
     wire [1:0] alu_op;
 
@@ -56,7 +55,8 @@ module decoder(
         .mreq(mreq),
         .is_branch(is_branch),
         .IS_Utype(IS_Utype),
-        .IS_lui(IS_lui)
+        .IS_lui(IS_lui),
+        .IS_jalr(IS_jalr)
     );
 
 

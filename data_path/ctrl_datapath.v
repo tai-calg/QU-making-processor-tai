@@ -20,7 +20,7 @@
    input wire [2:0] imm_src,
    input wire [3:0] alu_ctrl,
    input wire reg_write,
-   input wire IS_Utype,IS_lui,
+   input wire IS_Utype,IS_lui,IS_jalr,
 
 
    output wire ZERO,
@@ -29,7 +29,7 @@
    output wire [31:0] alu_out // to DAD
  );
 
-   wire [31:0] result, pc_next, pcplus4;
+   wire [31:0] result, pc_next, pcplus4, pcplusOffset;
    wire [31:0] rd1, srcB, immExt, pcplusImm, u_out;
    // wire [31:0] DAD;
 
@@ -46,7 +46,9 @@
    adder add4(pc,4,pcplus4);
    extend extend(inst[31:7], imm_src, immExt);
    adder addimm(pc,immExt,pcplusImm);
-   mux pcmux(pcplus4,pcplusImm,pc_src,pc_next);
+   //ここにaluoutを入れる＆＆mux(pcplusImm,aluout,is_jalr,pcplusOffset)
+   mux pcoffsetmux(pcplusImm,alu_out,IS_jalr,pcplusOffset);
+   mux pcmux(pcplus4,pcplusOffset,pc_src,pc_next);
 
    rf32x32 rf(
       .clk(clk), .reset(rst),
@@ -59,7 +61,6 @@
    mux mux_src(rd2,immExt,alu_src,srcB);
 
    ALU alu(rd1, srcB, alu_ctrl, alu_out, ZERO);
-   // assign DAD = alu_out;
 
    utype_alu u_alu(.imm20(immExt), .pc(pc), .IS_lui(IS_lui), .IS_Utype(IS_Utype)
    , .result(u_out)); 

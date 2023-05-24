@@ -38,7 +38,7 @@ module top (
     wire [1:0] result_src;
     wire [2:0] imm_src;
     wire [3:0] alu_ctrl;
-    wire IS_lui,IS_Utype,mem_write,reg_write,pc_src,alu_src;
+    wire IS_lui,IS_Utype,IS_jalr,mem_write,reg_write,pc_src,alu_src;
     wire [31:0] rd2;
     wire pc_enable;
 
@@ -56,6 +56,7 @@ module top (
         .reg_write(reg_write),
         .IS_Utype(IS_Utype),
         .IS_lui(IS_lui),
+        .IS_jalr(IS_jalr),
         .byte_size(SIZE),
         .mreq(MREQ) // 3 , 35だけload,store.
     );
@@ -81,6 +82,7 @@ module top (
         .reg_write(reg_write),
         .IS_Utype(IS_Utype),
         .IS_lui(IS_lui),
+        .IS_jalr(IS_jalr),
 
         .ZERO(ZERO),
         .pc(IAD),
