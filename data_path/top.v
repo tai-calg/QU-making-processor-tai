@@ -35,7 +35,7 @@ module top (
 //この中はもうデータパスも同然
 
     // def wire //
-    wire [1:0] result_src;
+    wire [1:0] result_src, sgn_ext_src;
     wire [2:0] imm_src;
     wire [3:0] alu_ctrl;
     wire IS_lui,IS_Utype,IS_jalr,mem_write,reg_write,pc_src,alu_src;
@@ -58,6 +58,7 @@ module top (
         .IS_lui(IS_lui),
         .IS_jalr(IS_jalr),
         .byte_size(SIZE),
+        .sgn_ext_src(sgn_ext_src),
         .mreq(MREQ) // 3 , 35だけload,store.
     );
 
@@ -91,8 +92,8 @@ module top (
     );
     // assign DAD = ;
     wire [31:0] ReadDDT;
-    assign ReadDDT = DDT;
-    assign DDT = MREQ ? rd2 : 32'hz; //!... WRITE ? からMREQ ? に変更。
+    sgn_extend sgnext(DDT, sgn_ext_src, ReadDDT);
+    assign DDT = WRITE ? rd2 : 32'hz; //!... WRITE ? からMREQ ? に変更。
 
 
 endmodule

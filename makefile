@@ -1,4 +1,4 @@
-LIBRARY :=  ALU/ALU.v  ALU/adder.v  ALU/extend.v  ALU/utype_alu.v \
+LIBRARY :=  ALU/ALU.v  ALU/adder.v  ALU/extend.v  ALU/utype_alu.v ALU/sgn_extend.v \
 	data_path/ctrl_datapath.v data_path/pc_ff.v data_path/top.v \
 	decoder/decoder.v decoder/inst_decoder.v decoder/signal_controller.v \
 	decoder/load_wait.v\

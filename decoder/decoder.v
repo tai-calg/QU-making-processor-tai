@@ -26,6 +26,7 @@ module decoder(
     output IS_lui,
     output IS_jalr,
     output [1:0] byte_size,
+    output [1:0] sgn_ext_src,
     output mreq
     ); 
     // alu_ctrl = mode in ALU32
@@ -66,7 +67,8 @@ module decoder(
         .funct7b5(inst[30]),
 
         .alu_ctrl(alu_ctrl),
-        .byte_size(byte_size)
+        .byte_size(byte_size),
+        .sgn_ext_src(sgn_ext_src)
     ); 
 
     assign pc_src = is_branch & ZERO | Jump; // for branch judge

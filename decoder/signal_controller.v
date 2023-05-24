@@ -53,6 +53,7 @@ module signal_controller(
     assign {result_src, mem_write, alu_src, imm_src, reg_write, alu_op, mreq, 
         is_branch, Jump, IS_Utype, IS_lui, IS_jalr} = main_decoder(opcode);
 
+endmodule
 
 /*
     always @(opcode) begin 
@@ -201,5 +202,3 @@ module signal_controller(
 
 
 
-
-endmodule

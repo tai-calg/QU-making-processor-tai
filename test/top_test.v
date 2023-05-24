@@ -122,7 +122,7 @@ module top_test;
 
    //*** description for wave form ***//
    initial begin
-      $monitor($stime," PC=%h INST=%h", IAD, IDT);
+      // $monitor($stime," PC=%h INST=%h", IAD, IDT);
       //ここから2行はIcarus Verilog用(手元で動かすときに使ってください)
 	  $dumpfile("top_test.vcd");
       $dumpvars(0, u_top_1);
@@ -244,7 +244,7 @@ module top_test;
                    
                    ACKD_n = 1'b0;
                    CDSL = 0;
-                   $display("Dmem[%h] = %h", Daddr, DDT[BIT_WIDTH-1:0]);
+                  //  $display("Dmem[%h] = %h", Daddr, DDT[BIT_WIDTH-1:0]);
 
 
                 end // if (CDSL == DMEM_LATENCY)
