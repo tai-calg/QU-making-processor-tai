@@ -94,7 +94,11 @@ module top_test;
         for (i = 0; i < `IN_TOTAL; i =i +1)
           begin
 
-             Iaddr = u_top_1.IAD;            
+             Iaddr = u_top_1.IAD;  
+               if (IAD == 32'h00010360) begin
+                  $display("IAD is 0x000102A4 at time %t", $time);
+                  $stop;
+               end          
              fetch_task1;
 
              Daddr = u_top_1.DAD;
@@ -122,7 +126,7 @@ module top_test;
 
    //*** description for wave form ***//
    initial begin
-      // $monitor($stime," PC=%h INST=%h", IAD, IDT);
+      // $monitor($stime," i=%d PC=%h INST=%h",i, IAD, IDT);
       //ここから2行はIcarus Verilog用(手元で動かすときに使ってください)
 	  $dumpfile("top_test.vcd");
       $dumpvars(0, u_top_1);

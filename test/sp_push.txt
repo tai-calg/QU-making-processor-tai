@@ -1,0 +1,28 @@
+   10000:	08030137          	lui	sp,0x8030
+   10014:	e5010113          	addi	sp,sp,-432 # 802fe50 <__bss_end+0x1fc48>
+   10108:	1b010113          	addi	sp,sp,432
+   10110:	fd010113          	addi	sp,sp,-48
+   10118:	02812423          	sw	s0,40(sp) //!
+   102a0:	03010113          	addi	sp,sp,48
+   102a8:	f5010113          	addi	sp,sp,-176
+   10354:	0b010113          	addi	sp,sp,176
+   1035c:	fd010113          	addi	sp,sp,-48
+   103d8:	03010113          	addi	sp,sp,48
+   103e0:	fd010113          	addi	sp,sp,-48
+   104f8:	03010113          	addi	sp,sp,48
+   10500:	fe010113          	addi	sp,sp,-32
+   10528:	02010113          	addi	sp,sp,32
+   10530:	fd010113          	addi	sp,sp,-48 //!
+   10594:	03010113          	addi	sp,sp,48
+   10740:	ff010113          	addi	sp,sp,-16
+   107e4:	01010113          	addi	sp,sp,16
+ 80101a4:	0000016f          	jal	sp,80101a4 <memcpy+0x7fffb30>
+  44:	04090103          	lb	sp,64(s2)
+  50:	04090103          	lb	sp,64(s2)
+  56:	04090103          	lb	sp,64(s2)
+  62:	04090103          	lb	sp,64(s2)
+  68:	04090103          	lb	sp,64(s2)
+  6e:	04090103          	lb	sp,64(s2)
+  2a:	6e2d6363          	bltu	s10,sp,710 <_start-0xf8f0>
+   4:	12011117          	auipc	sp,0x12011
+  6e:	6e2d6363          	bltu	s10,sp,754 <_start-0xf8ac>

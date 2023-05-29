@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
-[*] Mon May 22 10:19:33 2023
+[*] Mon May 29 11:24:48 2023
 [*]
 [dumpfile] "/Users/taniguchitaichi/development/processorDev/test/top_test.vcd"
-[dumpfile_mtime] "Mon May 22 09:44:16 2023"
-[dumpfile_size] 55586
+[dumpfile_mtime] "Mon May 29 06:08:24 2023"
+[dumpfile_size] 3911041892
 [savefile] "/Users/taniguchitaichi/development/processorDev/test/515.gtkw"
-[timestart] 28180
-[size] 1168 687
-[pos] -186 205
-*-14.000000 67500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 259460630
+[size] 1241 653
+[pos] -1 -1
+*-13.800454 259478670 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top_test.
 [treeopen] top_test.u_top_1.
 [treeopen] top_test.u_top_1.datapath.
@@ -17,10 +17,15 @@
 [sst_width] 193
 [signals_width] 235
 [sst_expanded] 1
-[sst_vpaned_height] 323
-@22
+[sst_vpaned_height] 360
+@23
 top_test.u_top_1.IAD[31:0]
+@22
 top_test.u_top_1.IDT[31:0]
+@28
+top_test.u_top_1.dec.asig.alu_src
+top_test.u_top_1.dec.idec.sgn_ext_src[1:0]
+@22
 top_test.u_top_1.datapath.srcB[31:0]
 top_test.u_top_1.DAD[31:0]
 top_test.u_top_1.DDT[31:0]
@@ -38,10 +43,12 @@ top_test.u_top_1.datapath.rf.data_in[31:0]
 @28
 top_test.u_top_1.datapath.rf.wr_n
 top_test.u_top_1.datapath.rf.clk
-@29
 top_test.u_top_1.datapath.result_src[1:0]
 @22
 top_test.u_top_1.datapath.result[31:0]
 top_test.u_top_1.datapath.immExt[31:0]
+top_test.u_top_1.datapath.alu.A[31:0]
+top_test.u_top_1.datapath.alu.B[31:0]
+top_test.u_top_1.datapath.alu.X[31:0]
 [pattern_trace] 1
 [pattern_trace] 0

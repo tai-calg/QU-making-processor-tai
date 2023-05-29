@@ -17,8 +17,8 @@ def calculator(A, B):
 
     return C_hex
 
-A = '0x802fff0'
-B = -36
+A = '0x8000000'
+B = -40
 
 
 print(calculator(A, B))  # Output: 0x802fff0

@@ -5,50 +5,6 @@ module ALU(
     output wire [31:0] X, //alwaysにしたせいでregになった…
     output wire ZERO
     );
-
-
-
-
-
-    // always @( mode ) begin
-    //     case(mode)
-    //         4'b0000: X = $signed(A) + $signed(B);           // Add overflow無視 // ここsignedだよね。でもunsignedな加算をしたい時はないのかな
-    //         4'b0001: begin               // Subtract overflow無視
-    //             X = $signed(A) - $signed(B);
-    //             ZERO = (X == 0) ;
-    //         end         // Subtract
-    //         4'b0010: X = A & B;           // Bitwise AND
-    //         4'b0011: X = A | B;           // Bitwise OR
-    //         4'b0100: X = A ^ B;           // Bitwise XOR
-    //         4'b0101: X = A << B;     // logical Shift left 
-    //         4'b0110: X = A >> B;     // logical Shift right
-    //         4'b0111: X = $signed(A) >>> $signed(B) ;  // arithmetic Shift right
-    //         //--------------ここまでおｋ----------//
-    //         4'b1000: begin 
-    //             X = (A < B);    //sltu , bltu , sltiu
-    //             ZERO = X; // pc_src = is_branch & ZERO | Jump;より。
-    //         end
-    //         4'b1001: begin //bgeu
-    //             X = (A >= B);
-    //             ZERO = X;
-    //         end
-    //         // 4'b1010: X = A == B;
-    //         4'b1011: begin//bne 違えばゼロフラグが１になる。
-    //             X = (A != B);
-    //             ZERO = X;
-    //         end
-    //         4'b1100: begin //blt, slt , slti
-    //             X = ($signed(A) < $signed(B));
-    //             ZERO = X;
-    //         end
-    //         4'b1101: begin//bge
-    //             X = ($signed(A) >= $signed(B));
-    //             ZERO = X;
-    //         end
-
-    //     endcase
-
-    // end
     
     function [31:0] operation(
         input [3:0] mode,
@@ -119,3 +75,42 @@ module ALU(
 endmodule
 
 
+    // always @( mode ) begin
+    //     case(mode)
+    //         4'b0000: X = $signed(A) + $signed(B);           // Add overflow無視 // ここsignedだよね。でもunsignedな加算をしたい時はないのかな
+    //         4'b0001: begin               // Subtract overflow無視
+    //             X = $signed(A) - $signed(B);
+    //             ZERO = (X == 0) ;
+    //         end         // Subtract
+    //         4'b0010: X = A & B;           // Bitwise AND
+    //         4'b0011: X = A | B;           // Bitwise OR
+    //         4'b0100: X = A ^ B;           // Bitwise XOR
+    //         4'b0101: X = A << B;     // logical Shift left 
+    //         4'b0110: X = A >> B;     // logical Shift right
+    //         4'b0111: X = $signed(A) >>> $signed(B) ;  // arithmetic Shift right
+    //         //--------------ここまでおｋ----------//
+    //         4'b1000: begin 
+    //             X = (A < B);    //sltu , bltu , sltiu
+    //             ZERO = X; // pc_src = is_branch & ZERO | Jump;より。
+    //         end
+    //         4'b1001: begin //bgeu
+    //             X = (A >= B);
+    //             ZERO = X;
+    //         end
+    //         // 4'b1010: X = A == B;
+    //         4'b1011: begin//bne 違えばゼロフラグが１になる。
+    //             X = (A != B);
+    //             ZERO = X;
+    //         end
+    //         4'b1100: begin //blt, slt , slti
+    //             X = ($signed(A) < $signed(B));
+    //             ZERO = X;
+    //         end
+    //         4'b1101: begin//bge
+    //             X = ($signed(A) >= $signed(B));
+    //             ZERO = X;
+    //         end
+
+    //     endcase
+
+    // end
