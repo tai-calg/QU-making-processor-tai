@@ -4,34 +4,35 @@ module inst_decoder(
     input funct7b5,
     output wire [3:0] alu_ctrl,
     output wire [1:0] byte_size,
-    output wire [1:0] sgn_ext_src
+    output wire [1:0] sgn_ext_src,
+    output wire rd2ext_src
 );
 
 
-    function [7:0] inst_decode_fn(
+    function [8:0] inst_decode_fn(
         input [1:0] alu_op,
         input [2:0] funct3,
         input funct7b5
     );
-        // output = 8'b aluctrl_bytesize_sgnextsrc
+        /// output = 9'b aluctrl_bytesize_sgnextsrc_rd2extsrc
         begin
             case (alu_op)
                 2'b00: begin // Load
                     case (funct3) 
-                        3'b000: inst_decode_fn = 8'b0000_10_01; //1byte load(lb)
-                        3'b001: inst_decode_fn = 8'b0000_01_10;//2byte load(lh)
-                        3'b010: inst_decode_fn = 8'b0000_00_00; //4byte load(lw)
-                        3'b100: inst_decode_fn = 8'b0000_10_00;//1byte load(lbu)
+                        3'b000: inst_decode_fn = 9'b0000_10_01_0; //1byte load(lb)
+                        3'b001: inst_decode_fn = 9'b0000_01_10_0; //2byte load(lh)
+                        3'b010: inst_decode_fn = 9'b0000_00_00_0; //4byte load(lw)
+                        3'b100: inst_decode_fn = 9'b0000_10_00_0; //1byte load(lbu)
                     endcase
                 end
                 2'b01: begin // Branch
                     case (funct3) 
-                        3'b000: inst_decode_fn = 8'b0001_xx_xx; // BEQ
-                        3'b001: inst_decode_fn = 8'b1011_xx_xx; // BNE
-                        3'b100: inst_decode_fn = 8'b1100_xx_xx; // BLT
-                        3'b101: inst_decode_fn = 8'b1101_xx_xx; // BGE
-                        3'b110: inst_decode_fn = 8'b1000_xx_xx; // BLTU
-                        3'b111: inst_decode_fn = 8'b1001_xx_xx; // BGEU
+                        3'b000: inst_decode_fn = 9'b0001_xx_xx_0; // BEQ
+                        3'b001: inst_decode_fn = 9'b1011_xx_xx_0; // BNE
+                        3'b100: inst_decode_fn = 9'b1100_xx_xx_0; // BLT
+                        3'b101: inst_decode_fn = 9'b1101_xx_xx_0; // BGE
+                        3'b110: inst_decode_fn = 9'b1000_xx_xx_0; // BLTU
+                        3'b111: inst_decode_fn = 9'b1001_xx_xx_0; // BGEU
                     
                     endcase
                 end
@@ -39,51 +40,51 @@ module inst_decoder(
                     case (funct3) 
                         3'b000: begin // ADD/SUB
                             if (funct7b5 == 1'b0)
-                                inst_decode_fn = 8'b0000_xx_xx; // ADD
+                                inst_decode_fn = 9'b0000_xx_xx_0; // ADD
                             else if (funct7b5 == 1'b1)
-                                inst_decode_fn = 8'b0001_xx_xx; // SUB
+                                inst_decode_fn = 9'b0001_xx_xx_0; // SUB
                         end
-                        3'b001: inst_decode_fn = 8'b0101_xx_xx; // SLL
-                        3'b010: inst_decode_fn = 8'b1100_xx_xx; // SLT signed <
-                        3'b011: inst_decode_fn = 8'b1000_xx_xx; // SLTU  <
-                        3'b100: inst_decode_fn = 8'b0100_xx_xx; // XOR
+                        3'b001: inst_decode_fn = 9'b0101_xx_xx_1; // sll
+                        3'b010: inst_decode_fn = 9'b1100_xx_xx_0; // SLT signed <
+                        3'b011: inst_decode_fn = 9'b1000_xx_xx_0; // SLTU  <
+                        3'b100: inst_decode_fn = 9'b0100_xx_xx_0; // XOR
                         3'b101: begin // SRL/SRA
                             if (funct7b5 == 1'b0)
-                                inst_decode_fn = 8'b0110_xx_xx; // srl
+                                inst_decode_fn = 9'b0110_xx_xx_1; // srl
                             else if (funct7b5 == 1'b1)
-                                inst_decode_fn = 8'b0111_xx_xx; // sra
+                                inst_decode_fn = 9'b0111_xx_xx_1; // sra
                         end
-                        3'b110: inst_decode_fn = 8'b0011_xx_xx; // OR 
-                        3'b111: inst_decode_fn = 8'b0010_xx_xx; // AND 
+                        3'b110: inst_decode_fn = 9'b0011_xx_xx_0; // OR 
+                        3'b111: inst_decode_fn = 9'b0010_xx_xx_0; // AND 
                     
                     endcase
                 end 
                 2'b11: begin // addi (I-type:19系)
                     case (funct3) 
-                        3'b000: inst_decode_fn = 8'b0000_xx_xx; // ADDI
-                        3'b001: inst_decode_fn = 8'b0101_xx_xx; // SLLI <<
-                        3'b010: inst_decode_fn = 8'b1100_xx_xx; // slti : signed <
-                        3'b011: inst_decode_fn = 8'b1000_xx_xx; // sltiu : <
-                        3'b100: inst_decode_fn = 8'b0100_xx_xx; // XORI
+                        3'b000: inst_decode_fn = 9'b0000_xx_xx_x; // ADDI
+                        3'b001: inst_decode_fn = 9'b0101_xx_xx_x; // SLLI <<
+                        3'b010: inst_decode_fn = 9'b1100_xx_xx_x; // slti : signed <
+                        3'b011: inst_decode_fn = 9'b1000_xx_xx_x; // sltiu : <
+                        3'b100: inst_decode_fn = 9'b0100_xx_xx_x; // XORI
                         3'b101: begin // SRLI/SRAI
                             if (funct7b5 == 1'b0)
-                                inst_decode_fn = 8'b0110_xx_xx; // SRLI
+                                inst_decode_fn = 9'b0110_xx_xx_x; // SRLI
                             else if (funct7b5 == 1'b1)
-                                inst_decode_fn = 8'b0111_xx_xx; // SRAI
+                                inst_decode_fn = 9'b0111_xx_xx_x; // SRAI
                         end
-                        3'b110: inst_decode_fn = 8'b0011_xx_xx; // ORI
-                        3'b111: inst_decode_fn = 8'b0010_xx_xx; // ANDI
+                        3'b110: inst_decode_fn = 9'b0011_xx_xx_x; // ORI
+                        3'b111: inst_decode_fn = 9'b0010_xx_xx_x; // ANDI
                     
                     endcase
                 end
                 default: begin
-                    inst_decode_fn = 8'bxxxx_xxxx;
+                    inst_decode_fn = 9'bxxxx_xxxx_x;
                 end
             endcase
         end
     endfunction
 
-    assign {alu_ctrl, byte_size, sgn_ext_src} = inst_decode_fn(alu_op, funct3, funct7b5);
+    assign {alu_ctrl, byte_size, sgn_ext_src, rd2ext_src} = inst_decode_fn(alu_op, funct3, funct7b5);
 
 
 endmodule

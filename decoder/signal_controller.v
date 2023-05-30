@@ -5,6 +5,7 @@ import load_wait;
 
 module signal_controller(
     input [6:0] opcode,
+    input [2:0] funct3 , //for shamt judge.
 
     output wire [1:0] result_src, 
     output wire mem_write,
@@ -30,13 +31,21 @@ module signal_controller(
 
         
    function [15:0] main_decoder(
-        input [6:0] opcode
+        input [6:0] opcode,
+        input [2:0] funct3
     );
 
         case (opcode) 
         //16b'resultsrc_memwrite_alusrc_immsrc_regwrite_aluop_mreq_Branch_Jump_Utype_Lui_Jalr
             7'b0000011 : main_decoder = 16'b01_0_1_000_1_00_1_0_0_0_0_0; // 3: I-type: load d,w,h,b
-            7'b0010011 : main_decoder = 16'b00_0_1_000_1_11_0_0_0_0_0_0; // 19: I-type: immidiate 
+            7'b0010011 : begin 
+                //main_decoder = 16'b00_0_1_000_1_11_0_0_0_0_0_0; // 19: I-type: immidiate 
+                case (funct3) 
+                    3'b001 : main_decoder = 16'b00_0_1_101_1_11_0_0_0_0_0_0; // 19: I-type: slli only
+                    3'b101 : main_decoder = 16'b00_0_1_101_1_11_0_0_0_0_0_0; // 19: I-type: srai,srli. immsrc is 101
+                    default: main_decoder = 16'b00_0_1_000_1_11_0_0_0_0_0_0; // 19: I-type: immidiate
+                endcase
+            end
             7'b1100111 : main_decoder = 16'b00_0_1_000_1_10_0_1_1_0_0_1; // 103: I-type: jalr
             7'b0100011 : main_decoder = 16'bxx_1_1_001_0_00_1_0_0_0_0_0; // 35: S-type: store d,w,h,b
             7'b0110011 : main_decoder = 16'b00_0_0_xxx_1_10_0_0_0_0_0_0; // 51: R-type: algebraic op of word(,which mean 32bit). add,sub,sll,slt,sltu,xor,srl,sra,or,and
@@ -51,7 +60,7 @@ module signal_controller(
 
 
     assign {result_src, mem_write, alu_src, imm_src, reg_write, alu_op, mreq, 
-        is_branch, Jump, IS_Utype, IS_lui, IS_jalr} = main_decoder(opcode);
+        is_branch, Jump, IS_Utype, IS_lui, IS_jalr} = main_decoder(opcode,funct3);
 
 endmodule
 

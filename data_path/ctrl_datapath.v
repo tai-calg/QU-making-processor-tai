@@ -20,7 +20,7 @@
    input wire [2:0] imm_src,
    input wire [3:0] alu_ctrl,
    input wire reg_write,
-   input wire IS_Utype,IS_lui,IS_jalr,
+   input wire IS_Utype,IS_lui,IS_jalr,rd2ext_src,
 
 
    output wire ZERO,
@@ -58,7 +58,9 @@
       
       .data1_out(rd1),.data2_out(rd2)
    );
-   mux mux_src(rd2,immExt,alu_src,srcB);
+   wire [31:0] rd2ext;
+   rd2ext_4to0 rdext(rd2,rd2ext_src,rd2ext);
+   mux mux_src(rd2ext,immExt,alu_src,srcB);
 
    ALU alu(rd1, srcB, alu_ctrl, alu_out, ZERO);
 

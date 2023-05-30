@@ -60,7 +60,10 @@ def remove_lines_with_words_wq(words, input_file):
 # remove_lines_with_words_wq["単語1", "単語2", "単語3"], "output.txt")
 
 # all_instructions = []
-# hello_instructions = ['add', 'addi', 'ret', 'jal', 'j', 'lui', 'sw', 'lw', 'sb', 'lbu', 'mv', 'bnez', 'nop', 'li', '.2byte']
+hello_instructions = ['add', 'addi', 'ret', 'jal', 'j', 'lui', 'sw', 'lw', 'sb', 'lbu', 'mv', 'bnez', 'nop', 'li', '.2byte']
+qsort_instructions = (list(hello_instructions))\
+    .extend(['srli','srai','slli','blt','bge','bne','bltu','zext.b','sub','andi','beqz','bltz','bgeu'\
+        ,'blez','beqz','or','jr','neg','bgtz','xor'])
 # remove_lines_with_words_wq(hello_instructions, "output.txt")
 
 
@@ -77,3 +80,12 @@ def leave_lines_with_words_wq(words, input_file):
 
 leave_line = ["sp"]
 leave_lines_with_words_wq(leave_line, "sp_search.txt")
+
+def leave_lines_with_words_wq_io(words, input_file, output_file):
+    with open(input_file, "r") as in_file, open(output_file, "w") as out_file:
+        for line in in_file:
+            if any(re.search(r'\b' + re.escape(word) + r'\b', line) for word in words):
+                out_file.write(line)
+
+# 以下のように関数を呼び出すことができます
+keep_lines_with_words(leave_line, "input.txt", "output.txt")
