@@ -1,0 +1,45 @@
+
+dijkstra_test.lo:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010000 <_start>:
+
+00010010 <FOREVER_LOOP>:
+
+00010014 <main>:
+
+000100d8 <myputchar>:
+
+00010108 <myputs>:
+
+00010174 <Qmem_free>:
+
+00010200 <Qmem_alloc>:
+
+000102b8 <print_path>:
+   102ec:	02f70263          	beq	a4,a5,10310 <print_path+0x58>
+   1033c:	00f70c63          	beq	a4,a5,10354 <print_path+0x9c>
+
+00010368 <enqueue>:
+
+00010444 <dequeue>:
+
+000104f8 <qcount>:
+
+0001051c <dijkstra>:
+   10690:	0af70063          	beq	a4,a5,10730 <dijkstra+0x214>
+   106b0:	02f70463          	beq	a4,a5,106d8 <dijkstra+0x1bc>
+   10790:	00f70c63          	beq	a4,a5,107a8 <dijkstra+0x28c>
+
+000107cc <__divsi3>:
+
+000107d4 <__hidden___udivsi3>:
+
+0001081c <__umodsi3>:
+
+00010850 <__modsi3>:
+   1086c:	fe0558e3          	bgez	a0,1085c <__modsi3+0xc>
+
+Disassembly of section .data:
