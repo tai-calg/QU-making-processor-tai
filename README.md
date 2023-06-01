@@ -30,9 +30,10 @@ https://tex2e.github.io/blog/makefile/automatic-variables
 
 ## TODO
 
-//シミュレーションをみると、hello.dsの100e8のret命令で100d8にもどってこの間を無限ループしてる
-これの原因解析。
-myputs()にて発生。
+- mlt_datapath でalways @(clk)内でレジスタシフトする。
+- ステージごとのsrc wire宣言（たくさん）
+- ハザードの実装
+
 
 ## 疑問点
 
@@ -66,3 +67,5 @@ top.vに
     assign DDT = WRITE ? rd2 : 32'hz; 
 
 を設置。プロセッサ設計における注意点2020pdfを参照した。
+
+

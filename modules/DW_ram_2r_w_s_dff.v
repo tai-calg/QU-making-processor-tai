@@ -130,7 +130,7 @@ module DW_ram_2r_w_s_dff (clk, rst_n, cs_n, wr_n, rd1_addr, rd2_addr,
 
 
   
-   always @ (posedge ~clk or negedge a_rst_n) begin : registers
+   always @ (posedge clk or negedge a_rst_n) begin : registers
       integer i, j;
       
    
@@ -166,7 +166,7 @@ module DW_ram_2r_w_s_dff (clk, rst_n, cs_n, wr_n, rd1_addr, rd2_addr,
    end // registers
    
     
-  always @ (~clk) begin : clk_monitor 
+  always @ (clk) begin : clk_monitor 
     if ( (clk !== 1'b0) && (clk !== 1'b1) && ($time > 0) )
       $display( "WARNING: %m :\n  at time = %t, detected unknown value, %b, on clk input.",
                 $time, clk );

@@ -111,7 +111,7 @@ endmodule
                         byte_size <= 2'b00; // this is 4byte l/s
                     end
                     // lbu(100) , lhu(101)の実装をしていない！
-                    //TODO: 実装はしたが、lb,lhの符号拡張を自作実装することが発覚したのでその配線追加とモジュール追加。
+                    // 実装はしたが、lb,lhの符号拡張を自作実装することが発覚したのでその配線追加とモジュール追加。
                     3'b100: begin //1byte load/store(lbu/sbu)
                         alu_ctrl <= 4'b0000; 
                         byte_size <= 2'b10; // this is 1byte l/s
