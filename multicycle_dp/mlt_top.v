@@ -18,7 +18,7 @@ module top (
     wire [1:0] result_src, sgn_ext_src;
     wire [2:0] imm_src;
     wire [3:0] alu_ctrl;
-    wire IS_lui,IS_Utype,IS_jalr,mem_write,reg_write,pc_src,alu_src,rd2ext_src;
+    wire IS_lui,IS_Utype,IS_jalr,mem_write,reg_write,alu_src,rd2ext_src;
     wire [31:0] rd2;
     wire pc_enable;
     wire Jump, is_branch;
@@ -32,7 +32,6 @@ module top (
         .inst(IDT),
         .ZERO(ZERO), //still not defined 
 
-        .pc_src(pc_src),
         .result_src(result_src),
         .mem_write(WRITE),
         .alu_ctrl(alu_ctrl),
@@ -66,7 +65,6 @@ module top (
     ctrl_datapath datapath(
         .clk(clk), .rst(rst),
         .inst(IDT),
-        .pc_src(pc_src),
         .alu_src(alu_src),
         .result_src(result_src),
         .alu_ctrl(alu_ctrl),
@@ -85,8 +83,8 @@ module top (
 
         .ZERO(ZERO),
         .pc(IAD),
-        .rd2(rd2), //変更：(DDT) → (rd2)
-        .alu_out(DAD),
+        .rd2_forMem(rd2), //変更：(DDT) → (rd2)
+        .alu_out_forMem(DAD),
         .write(WRITE),
         .mreq_M(mreq_M), 
     );

@@ -15,7 +15,7 @@ module decoder(
     input [31:0] inst,
     input ZERO, // ZERO : for branch judge
 
-    output pc_src ,
+    
     output [1:0] result_src,
     output mem_write,
     output [3:0] alu_ctrl,
