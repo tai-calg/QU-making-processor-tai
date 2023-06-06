@@ -1,6 +1,35 @@
-\`
+
 // mlt_dp_reg_IFID mltIfId();みたいな形でtopで宣言（インスタンス化）してtopでalways(@posedge clk) をやる。
 // mltIdEx.PC <= mltIfId.PC;みたいにシフトさせていく。
+
+
+module dp_reg #(
+    parameter WIDTH = 32,
+    parameter INIT_VALUE = 32'b0
+) (
+    input clk, rst , enable, flush,
+    input [WIDTH-1:0] d,
+
+    output reg [WIDTH-1:0] q
+);
+
+    always @(posedge clk or negedge rst) begin
+        if(!rst) begin
+            q <= INIT_VALUE;
+        end
+        else if (enable) begin //~~ stall, flush : 1,1 \ 1,0 \ 0,1 \ 0,0 それぞれどんなqを返す？
+            if (flush) begin
+                q <= INIT_VALUE; //not stall , flush
+            end
+            else begin
+                q <= d; // pcnext : not stall, not flush
+            end
+        end //今のままだとストールしたら確定でqが変わらない。 ... stall , flushの時は0にしないのか？
+    end
+    
+endmodule
+
+/*
 module mlt_dp_reg_IFID;
     reg [31:0] inst, PC4, PC;
 endmodule
@@ -33,4 +62,4 @@ module mlt_dp_reg_MEMWB;
     // WB
     reg reg_write, result_src;
 endmodule
-
+*/

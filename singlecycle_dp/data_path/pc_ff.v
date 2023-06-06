@@ -13,7 +13,7 @@ module pc_ff (
             q <= 32'h1_0000; // Imam.dat記載のpcの初期値
         end
         else if (pc_enable) begin
-            q <= d;
+            q <= d; // pcnext !
         end // ここでpc_enableが0の時はq(pcnext or pc+4)を更新しない
     end
 endmodule
