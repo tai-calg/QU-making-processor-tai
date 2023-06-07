@@ -36,6 +36,26 @@
    wire [31:0] result, pc_next, pcplus4, pcplusOffset;
    wire [31:0] rd1, srcB, immExt, pcplusImm, u_out;
 
+   // hazard
+   wire [1:0] forward_rs1, forward_rs2;
+   hazard hzd(
+      .rs1_IdEx(rs1_IdEx), .rs2_IdEx(rs2_IdEx), 
+      .rd_ExMem(rd_ExMem) ,.rd_MemWB(rd_MemWB),
+      .reg_write_ExMem(reg_write_ExMem), .reg_write_MemWB(reg_write_MemWB),
+
+      .forward_rs1(forward_rs1) , .forward_rs2(forward_rs2) 
+   );
+
+   mux3 rs1fowarder (
+       .A(rs1Data_IdEx), .B(alu_out_ExMem), .C(result),
+      .sel(forward_rs1), .X(srcA_E)
+   );
+   wire [31:0] rs2Data_IdEx_fwded;
+   mux3 rs2fowarder (
+       .A(rs2Data_IdEx), .B(alu_out_ExMem), .C(result),
+      .sel(forward_rs2), .X(rs2Data_IdEx_fwded)
+   );
+
 
    //   ---   IF stage   ---   
    wire [31:0] pc_IfId, pc4_IfId, inst_IfId;  
@@ -43,7 +63,7 @@
       .WIDTH(96),
       .INIT_VALUE(32'h0)
    ) regIfId (
-      .clk(clk), .rst(rst), .enable(1'b1), .flush(1'b0),
+      .clk(clk), .rst(rst), .stall(1'b1), .flush(1'b0),
       .d({pc, pcplus4, inst}),
 
       .q({pc_IfId, pc4_IfId, inst_IfId})
@@ -61,7 +81,7 @@
       .WIDTH(***),
       .INIT_VALUE(32'h0)
    ) regIdEx (
-      .clk(clk), .rst(rst), .enable(***), .flush(***),
+      .clk(clk), .rst(rst), .stall(***), .flush(***),
       .d({pc_IfId, pc4_IfId, inst[19:15], inst[24:20], inst[11:7], rd1, rd2, immExt, 
          alu_src, rd2ext_src, IS_jalr, IS_Utype, IS_lui, Jump, is_branch, alu_ctrl, imm_src, // EX 
          mem_write, mreq, sgn_ext_src, // MEM
@@ -83,7 +103,7 @@
       .WIDTH(***),
       .INIT_VALUE(32'h0)
    ) regExMem (
-      .clk(clk), .rst(rst), .enable(***), .flush(***),
+      .clk(clk), .rst(rst), .stall(***), .flush(***),
       .d({pc4_IdEx, alu_out, rs2Data_IdEx, rd_IdEx,
          mem_write_IdEx, mreq_IdEx, sgn_ext_src_IdEx, // MEM
          reg_write_IdEx, result_src_IdEx}), //WB
@@ -102,7 +122,7 @@
       .WIDTH(***),
       .INIT_VALUE(32'h0)
    ) regMemWb (
-      .clk(clk), .rst(rst), .enable(***), .flush(***),
+      .clk(clk), .rst(rst), .stall(***), .flush(***),
       .d({pc4_ExMem, alu_out_ExMem, R_DDT, u_out, rd_ExMem, 
          reg_write_ExMem, result_src_ExMem}), // WB
 
@@ -222,10 +242,10 @@
 
 
    wire [31:0] rd2ext;
-   rd2ext_4to0 rdext(rs2Data_IdEx, rd2ext_src_IdEx, rd2ext);
+   rd2ext_4to0 rdext(rs2Data_IdEx_fwded, rd2ext_src_IdEx, rd2ext);
    mux mux_src(rd2ext, immExt_IdEx , alu_src_IdEx , srcB);
 
-   ALU alu(rs1Data_IdEx , srcB, alu_ctrl_IdEx, alu_out, ZERO);
+   ALU alu(srcA_E , srcB, alu_ctrl_IdEx, alu_out, ZERO);
 
    utype_alu u_alu(.imm20(immExt_IdEx), .pc(pc_IdEx), .IS_lui(IS_lui_IdEx), .IS_Utype(IS_Utype_IdEx)
    , .result(u_out)); 
@@ -238,7 +258,7 @@
    sgn_extend sgnext(DDT_from_mem, sgn_ext_src_ExMem, ReadDDT);// in DDT, out ReadDDT //~~ これRead間に合うのか？
 
    //============= WB STAGE =============//
-   mux2 mux_result(alu_out_MemWB, R_DDT_MemWB, pc4_MemWB, uout_MemWB, result_src_MemWB, result);
+   mux4 mux_result(alu_out_MemWB, R_DDT_MemWB, pc4_MemWB, uout_MemWB, result_src_MemWB, result);
 
    // waiting mechanism
    /* maybe not need as pipeline.

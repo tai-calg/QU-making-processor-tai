@@ -66,7 +66,7 @@
 
    utype_alu u_alu(.imm20(immExt), .pc(pc), .IS_lui(IS_lui), .IS_Utype(IS_Utype)
    , .result(u_out)); 
-   mux2 mux_result(alu_out, ReadDDT, pcplus4, u_out, result_src, result);
+   mux4 mux_result(alu_out, ReadDDT, pcplus4, u_out, result_src, result);
 
    // waiting mechanism
       wire reg_write_load;

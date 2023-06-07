@@ -21,7 +21,19 @@ module mux(
 
 endmodule
 
-module mux2(
+module mux3(
+    input wire [31:0] A,
+    input wire [31:0] B,
+    input wire [31:0] C,
+    input wire [1:0] sel,     
+    output wire [31:0] X
+);
+    
+
+    assign X = (sel == 2'b00) ? A : (sel == 2'b01) ? B : C;
+endmodule
+
+module mux4(
     input wire [31:0] A,
     input wire [31:0] B,
     input wire [31:0] C,
@@ -40,6 +52,4 @@ module mux2(
     // end  
     assign X = (sel == 2'b00) ? A : (sel == 2'b01) ? B : (sel == 2'b10) ? C : D;
 endmodule
-
-
 

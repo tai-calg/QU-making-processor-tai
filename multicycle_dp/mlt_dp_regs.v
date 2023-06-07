@@ -7,7 +7,7 @@ module dp_reg #(
     parameter WIDTH = 32,
     parameter INIT_VALUE = 32'b0
 ) (
-    input clk, rst , enable, flush,
+    input clk, rst , stall, flush,
     input [WIDTH-1:0] d,
 
     output reg [WIDTH-1:0] q
@@ -17,14 +17,24 @@ module dp_reg #(
         if(!rst) begin
             q <= INIT_VALUE;
         end
-        else if (enable) begin //~~ stall, flush : 1,1 \ 1,0 \ 0,1 \ 0,0 それぞれどんなqを返す？
-            if (flush) begin
-                q <= INIT_VALUE; //not stall , flush
-            end
-            else begin
-                q <= d; // pcnext : not stall, not flush
-            end
-        end //今のままだとストールしたら確定でqが変わらない。 ... stall , flushの時は0にしないのか？
+        else if(stall & flush | ~stall & flush ) begin // flushあればinit
+            q <= INIT_VALUE;
+        end
+        else if(~stall & ~flush) begin // next pc
+            q <= d;
+        end
+        else if(stall & ~flush) begin // stall
+            q <= q;
+        end
+
+        // else if (enable) begin //~~ stall, flush : 1,1 \ 1,0 \ 0,1 \ 0,0 それぞれどんなqを返す？
+        //     if (flush) begin
+        //         q <= INIT_VALUE; //not stall , flush
+        //     end
+        //     else begin
+        //         q <= d; // pcnext : not stall, not flush
+        //     end
+        // end //今のままだとストールしたら確定でqが変わらない。 ... stall , flushの時は0にしないのか？
     end
     
 endmodule
