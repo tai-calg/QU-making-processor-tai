@@ -85,8 +85,8 @@ module top (
         .pc(IAD),
         .rd2_forMem(rd2), //変更：(DDT) → (rd2)
         .alu_out_forMem(DAD),
-        .write(WRITE),
-        .mreq_M(mreq_M), 
+        .WRITE(WRITE),
+        .mreq_M(mreq_M)
     );
     wire [31:0] ReadDDT;
     assign DDT = WRITE ? rd2 : 32'hz; //!... WRITE ? からMREQ ? に変更。

@@ -1,6 +1,7 @@
 module sgn_extend (
     input wire [31:0] DDT_from_mem,
     input wire [1:0] read_ext_src,
+    
     output wire [31:0] R_DDT
 );
 
