@@ -13,8 +13,6 @@ decoderといってもメインデコーダーとALUデコーダーにわけら�
 module decoder(
     // input clk, rst, 
     input [31:0] inst,
-    input ZERO, // ZERO : for branch judge
-
     
     output [1:0] result_src,
     output mem_write,

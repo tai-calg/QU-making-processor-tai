@@ -63,7 +63,7 @@ Disassembly of section .text:
    100b4:	fec42783          	lw	a5,-20(s0) 
    100b8:	00178793          	addi	a5,a5,1
    100bc:	fef42623          	sw	a5,-20(s0)
-   100c0:	fec42783          	lw	a5,-20(s0) 0xffff00// jump to here 
+   100c0:	fec42783          	lw	a5,-20(s0) 0xffff00// jump to here //0xffffff bug!
    100c4:	fdc42703          	lw	a4,-36(s0)
    100c8:	00f707b3          	add	a5,a4,a5
    100cc:	0007c783          	lbu	a5,0(a5)
