@@ -2,6 +2,7 @@ module inst_decoder(
     input [1:0] alu_op,
     input [2:0] funct3,
     input funct7b5,
+    
     output wire [3:0] alu_ctrl,
     output wire [1:0] byte_size,
     output wire [1:0] sgn_ext_src,

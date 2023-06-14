@@ -15,7 +15,7 @@ module dp_reg #(
 
     always @(posedge clk or negedge rst) begin
         if(!rst) begin
-            q <= INIT_VALUE;
+            q <= 32'h1_0000;
         end
         else if(stall & flush | ~stall & flush ) begin // flushあればinit
             q <= INIT_VALUE;

@@ -1,39 +1,265 @@
 [*]
 [*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
-[*] Fri Jun  9 09:47:22 2023
+[*] Wed Jun 14 12:58:25 2023
 [*]
 [dumpfile] "/Users/taniguchitaichi/development/processorDev/test/top_test.vcd"
-[dumpfile_mtime] "Fri Jun  9 09:33:30 2023"
-[dumpfile_size] 4463992
+[dumpfile_mtime] "Wed Jun 14 11:58:01 2023"
+[dumpfile_size] 158071
 [savefile] "/Users/taniguchitaichi/development/processorDev/test/mlt_hello.gtkw"
-[timestart] 225020
-[size] 1445 960
+[timestart] 89600
+[size] 1664 896
 [pos] -1 -1
-*-13.800454 265890 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-13.800454 125620 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top_test.
 [treeopen] top_test.u_top_1.
 [treeopen] top_test.u_top_1.datapath.
-[sst_width] 200
-[signals_width] 291
+[sst_width] 238
+[signals_width] 656
 [sst_expanded] 1
-[sst_vpaned_height] 489
+[sst_vpaned_height] 560
 @22
 top_test.u_top_1.IAD[31:0]
 top_test.u_top_1.IDT[31:0]
-top_test.u_top_1.datapath.pc_ff.d[31:0]
-top_test.u_top_1.datapath.pc_ff.q[31:0]
+@28
+top_test.u_top_1.datapath.flush_IfId
+@22
+top_test.u_top_1.datapath.pc_IfId[31:0]
+top_test.u_top_1.datapath.regIfId.q[95:0]
 top_test.u_top_1.datapath.immExt[31:0]
-top_test.u_top_1.IAD[31:0]
 top_test.u_top_1.datapath.rf.rd1_addr[4:0]
 top_test.u_top_1.datapath.rf.data1_out[31:0]
 top_test.u_top_1.datapath.rf.rd2_addr[4:0]
 top_test.u_top_1.datapath.rf.data2_out[31:0]
-top_test.u_top_1.DDT[31:0]
 top_test.u_top_1.datapath.rf.wr_addr[4:0]
 top_test.u_top_1.datapath.rf.data_in[31:0]
+top_test.u_top_1.datapath.rd2[31:0]
+@28
+top_test.u_top_1.datapath.clk
+top_test.u_top_1.datapath.stall_if
+@22
+top_test.u_top_1.datapath.rs2Data_IdEx[31:0]
+@28
+top_test.u_top_1.datapath.result_src_IdEx[1:0]
+@22
+top_test.u_top_1.DDT[31:0]
+@28
+top_test.u_top_1.datapath.rf.wr_n
+@22
+top_test.u_top_1.datapath.pc_IdEx[31:0]
+@c00022
+top_test.u_top_1.datapath.regIdEx.q[194:0]
+@28
+(0)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(1)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(2)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(3)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(4)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(5)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(6)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(7)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(8)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(9)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(10)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(11)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(12)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(13)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(14)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(15)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(16)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(17)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(18)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(19)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(20)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(21)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(22)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(23)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(24)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(25)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(26)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(27)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(28)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(29)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(30)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(31)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(32)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(33)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(34)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(35)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(36)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(37)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(38)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(39)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(40)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(41)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(42)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(43)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(44)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(45)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(46)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(47)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(48)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(49)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(50)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(51)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(52)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(53)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(54)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(55)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(56)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(57)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(58)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(59)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(60)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(61)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(62)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(63)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(64)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(65)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(66)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(67)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(68)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(69)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(70)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(71)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(72)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(73)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(74)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(75)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(76)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(77)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(78)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(79)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(80)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(81)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(82)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(83)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(84)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(85)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(86)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(87)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(88)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(89)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(90)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(91)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(92)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(93)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(94)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(95)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(96)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(97)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(98)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(99)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(100)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(101)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(102)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(103)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(104)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(105)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(106)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(107)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(108)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(109)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(110)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(111)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(112)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(113)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(114)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(115)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(116)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(117)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(118)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(119)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(120)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(121)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(122)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(123)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(124)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(125)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(126)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(127)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(128)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(129)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(130)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(131)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(132)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(133)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(134)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(135)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(136)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(137)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(138)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(139)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(140)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(141)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(142)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(143)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(144)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(145)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(146)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(147)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(148)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(149)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(150)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(151)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(152)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(153)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(154)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(155)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(156)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(157)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(158)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(159)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(160)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(161)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(162)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(163)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(164)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(165)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(166)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(167)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(168)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(169)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(170)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(171)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(172)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(173)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(174)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(175)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(176)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(177)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(178)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(179)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(180)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(181)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(182)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(183)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(184)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(185)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(186)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(187)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(188)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(189)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(190)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(191)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(192)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(193)top_test.u_top_1.datapath.regIdEx.q[194:0]
+(194)top_test.u_top_1.datapath.regIdEx.q[194:0]
+@1401200
+-group_end
+@28
+top_test.u_top_1.datapath.forward_rs2[1:0]
+@22
+top_test.u_top_1.datapath.rs2Data_IdEx_fwded[31:0]
+@28
+top_test.u_top_1.datapath.forward_rs1[1:0]
+@23
+top_test.u_top_1.datapath.srcA_E[31:0]
+@22
 top_test.u_top_1.datapath.alu.mode[3:0]
 top_test.u_top_1.datapath.alu.A[31:0]
 top_test.u_top_1.datapath.alu.B[31:0]
+top_test.u_top_1.datapath.alu.X[31:0]
+top_test.u_top_1.datapath.immExt_IdEx[31:0]
 @28
 top_test.u_top_1.datapath.pc_src
 @22
@@ -47,15 +273,23 @@ top_test.u_top_1.datapath.mreq_M
 top_test.u_top_1.datapath.rd2_forMem[31:0]
 top_test.u_top_1.datapath.alu_out_forMem[31:0]
 top_test.u_top_1.DAD[31:0]
-@23
+top_test.u_top_1.datapath.ReadDDT[31:0]
 top_test.u_top_1.datapath.DDT_from_mem[31:0]
-@28
+@c00028
 top_test.u_top_1.datapath.result_src_MemWB[1:0]
+@28
+(0)top_test.u_top_1.datapath.result_src_MemWB[1:0]
+(1)top_test.u_top_1.datapath.result_src_MemWB[1:0]
+@1401200
+-group_end
 @22
 top_test.u_top_1.datapath.alu_out_MemWB[31:0]
 top_test.u_top_1.datapath.R_DDT_MemWB[31:0]
 top_test.u_top_1.datapath.pc4_MemWB[31:0]
 top_test.u_top_1.datapath.uout_MemWB[31:0]
 top_test.u_top_1.datapath.result[31:0]
+@28
+top_test.u_top_1.mreq_M
+top_test.u_top_1.WRITE
 [pattern_trace] 1
 [pattern_trace] 0

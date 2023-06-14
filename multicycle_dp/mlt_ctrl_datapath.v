@@ -39,19 +39,21 @@
    );
    wire [31:0] srcA_E;
    mux3 rs1fowarder (
-       .A(rs1Data_IdEx), .B(alu_out_ExMem), .C(result),
+       .A(rs1Data_IdEx), .B(fwd_out), .C(result),
       .sel(forward_rs1), .X(srcA_E)
    );
    wire [31:0] rs2Data_IdEx_fwded;
+   
+   wire [31:0] fwd_out = (IS_lui_ExMem) ? u_out_Exmem : alu_out_ExMem;
    mux3 rs2fowarder (
-       .A(rs2Data_IdEx), .B(alu_out_ExMem), .C(result),
+       .A(rs2Data_IdEx), .B(fwd_out), .C(result),
       .sel(forward_rs2), .X(rs2Data_IdEx_fwded)
    );
 
    // hazard stall
    wire lw_stall , stall_if, stall_id;
    assign lw_stall = result_src_IdEx == 2'b01 &&
-       (rd_IdEx == inst_IfId[19:15] | rd_IdEx == inst_IfId[24:20]);
+       (inst_IfId[19:15] == rd_IdEx   |  inst_IfId[24:20] == rd_IdEx);
    assign stall_if = lw_stall;
    assign stall_id = lw_stall;
 
@@ -78,7 +80,7 @@
    wire [31:0] pc_IfId, pc4_IfId, inst_IfId;  
    dp_reg #(
       .WIDTH(96),
-      .INIT_VALUE(32'h0)
+      .INIT_VALUE({32'h0, 32'h0, 32'h13}) // 32'h13 は nop(addi x0, x0, 0)
    ) regIfId (
       .clk(clk), .rst(rst), .stall(stall_id), .flush(flush_IfId),
       .d({pc, pcplus4, inst}),
@@ -132,17 +134,17 @@
    wire [1:0] result_src_IdEx, sgn_ext_src_IdEx, byte_size_IdEx;
    dp_reg #(
       .WIDTH(195),
-      .INIT_VALUE(32'h0)
+      .INIT_VALUE(195'b0)
    ) regIdEx (
       .clk(clk), .rst(rst), .stall(1'b0), .flush(flush_IdEx),
       .d({pc_IfId, pc4_IfId, inst_IfId[19:15], inst_IfId[24:20], inst_IfId[11:7], rd1, rd2, immExt, //175
-         alu_src_D, rd2ext_src_D, IS_jalr_D, IS_Utype_D, IS_lui_D, Jump_D, is_branch_D, alu_ctrl_D, // EX // 186
-         mem_write_D, mreq_D, sgn_ext_src_D, byte_size_D ,// MEM
-         reg_write_D, result_src_D}), //WB
+         alu_src_D, rd2ext_src_D, IS_jalr_D, IS_Utype_D, IS_lui_D, Jump_D, is_branch_D, alu_ctrl_D, // EX // 11bit 186
+         mem_write_D, mreq_D, sgn_ext_src_D, byte_size_D ,// MEM //6bit , 192
+         reg_write_D, result_src_D}), //WB 3bit 
 
       .q({pc_IdEx, pc4_IdEx, rs1_IdEx, rs2_IdEx, rd_IdEx, rs1Data_IdEx, rs2Data_IdEx, immExt_IdEx, 
          alu_src_IdEx, rd2ext_src_IdEx, IS_jalr_IdEx, IS_Utype_IdEx, IS_lui_IdEx, Jump_IdEx, is_branch_IdEx, alu_ctrl_IdEx, // EX 
-         mem_write_IdEx, mreq_IdEx, sgn_ext_src_IdEx,byte_size_IdEx, // MEM
+         mem_write_IdEx, mreq_IdEx, sgn_ext_src_IdEx, byte_size_IdEx, // MEM
          reg_write_IdEx, result_src_IdEx}) //WB
    );
 
@@ -151,29 +153,29 @@
       //============= EXE STAGE =============//
    wire [31:0] pc4_ExMem, WD_ForMem, alu_out_ExMem,u_out_Exmem;
    wire [4:0] rd_ExMem;
-   wire mem_write_ExMem, mreq_ExMem; // MEM
+   wire mem_write_ExMem, mreq_ExMem, IS_lui_ExMem; // MEM
    wire [1:0] sgn_ext_src_ExMem, byte_size_ExMem; // MEM
    wire reg_write_ExMem; // WB
    wire [1:0] result_src_ExMem; // WB
    dp_reg #(
-      .WIDTH(142),
-      .INIT_VALUE(32'h0)
+      .WIDTH(143),
+      .INIT_VALUE(143'b0)
    ) regExMem (
       .clk(clk), .rst(rst), .stall(1'b0), .flush(1'b0),
       .d({pc4_IdEx, alu_out, rs2Data_IdEx, rd_IdEx,// 101
-         mem_write_IdEx, mreq_IdEx, sgn_ext_src_IdEx, byte_size_IdEx, // MEM
+         mem_write_IdEx, mreq_IdEx, sgn_ext_src_IdEx, byte_size_IdEx, IS_lui_IdEx, // MEM
          reg_write_IdEx, result_src_IdEx, u_out}), //WB
 
       .q({pc4_ExMem, alu_out_ExMem, WD_ForMem, rd_ExMem, 
-         mem_write_ExMem, mreq_ExMem, sgn_ext_src_ExMem, byte_size_ExMem, // MEM
+         mem_write_ExMem, mreq_ExMem, sgn_ext_src_ExMem, byte_size_ExMem, IS_lui_ExMem, // MEM
          reg_write_ExMem, result_src_ExMem, u_out_Exmem}) // WB
    );
 
    wire pc_src;
    assign pc_src = is_branch_IdEx & ZERO | Jump_IdEx; // for branch judge
    wire [31:0] alu_out;
-   adder addimm(pc_IdEx, immExt_IdEx ,pcplusImm);
-   mux pcoffsetmux(pcplusImm, alu_out, IS_jalr_IdEx,pcplusOffset); //~~ pipeExMem.alu_out. 
+   adder addimm(pc_IdEx, immExt_IdEx , pcplusImm);
+   mux pcoffsetmux(pcplusImm, alu_out, IS_jalr_IdEx, pcplusOffset); //~~ pipeExMem.alu_out. 
    //おそらくこれでExステージからPCsrcが確定して次のPCの判定に使われる
    
    mux pcmux(pcplus4,pcplusOffset, pc_src, pc_next);
@@ -197,7 +199,7 @@
    wire [1:0] result_src_MemWB; // WB
    dp_reg #(
       .WIDTH(136),
-      .INIT_VALUE(32'h0)
+      .INIT_VALUE(136'b0)
    ) regMemWb (
       .clk(clk), .rst(rst), .stall(1'b0), .flush(1'b0),
       .d({pc4_ExMem, alu_out_ExMem, ReadDDT, u_out_Exmem, rd_ExMem, 
