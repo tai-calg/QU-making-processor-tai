@@ -47,9 +47,9 @@ module signal_controller(
                 endcase
             end
             7'b1100111 : main_decoder = 16'b00_0_1_000_1_10_0_1_1_0_0_1; // 103: I-type: jalr
-            7'b0100011 : main_decoder = 16'bxx_1_1_001_0_00_1_0_0_0_0_0; // 35: S-type: store d,w,h,b
+            7'b0100011 : main_decoder = 16'b00_1_1_001_0_00_1_0_0_0_0_0; // 35: S-type: store d,w,h,b // resultsrc xx into 00
             7'b0110011 : main_decoder = 16'b00_0_0_xxx_1_10_0_0_0_0_0_0; // 51: R-type: algebraic op of word(,which mean 32bit). add,sub,sll,slt,sltu,xor,srl,sra,or,and
-            7'b1100011 : main_decoder = 16'bxx_0_0_010_0_01_0_1_0_0_0_0; // 99: B-type: branch
+            7'b1100011 : main_decoder = 16'b00_0_0_010_0_01_0_1_0_0_0_0; // 99: B-type: branch // resultsrc xx into 00
             7'b1101111 : main_decoder = 16'b10_0_x_011_1_xx_0_0_1_0_0_0; // 111: J-type: jal
             7'b0010111 : main_decoder = 16'b11_0_1_100_1_xx_0_0_0_1_0_0; // 23: U-type: auipc
             7'b0110111 : main_decoder = 16'b11_0_1_100_1_xx_0_0_0_1_1_0; // 55: U-type: lui
