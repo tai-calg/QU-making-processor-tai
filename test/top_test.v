@@ -126,7 +126,7 @@ module top_test;
 
    //*** description for wave form ***//
    initial begin
-      $monitor($stime," PC=%h INST=%h", IAD, IDT);
+      // $monitor($stime," PC=%h INST=%h", IAD, IDT);
       //ここから2行はIcarus Verilog用(手元で動かすときに使ってください)
 	  $dumpfile("top_test.vcd");
       $dumpvars(0, u_top_1);
@@ -175,13 +175,13 @@ module top_test;
                                                     DATA_Dmem[Daddr + 2], DATA_Dmem[Daddr + 3]};
 
                      end
-                   else if(SIZE == 2'b01)
+                   else if(SIZE == 2'b01) //half
                      begin
                         force DDT[BIT_WIDTH-1:0] = {{16{1'b0}}, DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b10} - Daddr[1:0]], 
 													DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b10} - Daddr[1:0] + 1]};
                      end
                    else
-                     begin
+                     begin //byte
                         force DDT[BIT_WIDTH-1:0] = {{24{1'b0}}, DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b11} - Daddr[1:0]]};
                      end // else: !if(SIZE == 2'b01)
 

@@ -10,6 +10,7 @@ def calculator(A, B):
     B_comp = B_hex if (B_hex < 2**31) else B_hex - 2**32
 
     # Calculate C
+    # print(A_comp)
     C = A_comp + B_comp
 
     # Convert C to hexadecimal
@@ -18,7 +19,7 @@ def calculator(A, B):
     return C_hex
 
 A = '0x802fff0'
-B = -20
+B = -36
 
 
 print(calculator(A, B))  # Output: 0x802fff0

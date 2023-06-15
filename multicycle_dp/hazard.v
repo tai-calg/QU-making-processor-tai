@@ -9,10 +9,9 @@ module hazard (
         input [4:0] rs_IdEx, rd_ExMem, rd_MemWB,
         input reg_write_ExMem, reg_write_MemWB
     );
-        if ( (reg_write_ExMem && (rs_IdEx == rd_ExMem)) &&  rd_ExMem != 1'b0) begin
+        if ( (reg_write_ExMem && (rs_IdEx == rd_ExMem)) &&  rd_ExMem != 5'b0) begin
             rs_hazarder = 4'b01; //mem forward
-        end else if ( (reg_write_MemWB && (rs_IdEx == rd_MemWB)) &&  rd_MemWB != 1'b0 && 
-            ~(reg_write_ExMem && (rd_ExMem != 0) && (rd_ExMem != rs_IdEx ) ) ) begin
+        end else if ( (reg_write_MemWB && (rs_IdEx == rd_MemWB)) &&  rd_MemWB != 5'b0 ) begin
             rs_hazarder = 4'b10; //wb forward
         end else begin
             rs_hazarder = 4'b00; //no forward

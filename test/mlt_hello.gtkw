@@ -1,24 +1,26 @@
 [*]
 [*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
-[*] Wed Jun 14 12:58:25 2023
+[*] Thu Jun 15 10:57:43 2023
 [*]
 [dumpfile] "/Users/taniguchitaichi/development/processorDev/test/top_test.vcd"
-[dumpfile_mtime] "Wed Jun 14 11:58:01 2023"
-[dumpfile_size] 158071
+[dumpfile_mtime] "Thu Jun 15 10:57:35 2023"
+[dumpfile_size] 169736349
 [savefile] "/Users/taniguchitaichi/development/processorDev/test/mlt_hello.gtkw"
-[timestart] 89600
-[size] 1664 896
+[timestart] 311140
+[size] 1535 946
 [pos] -1 -1
-*-13.800454 125620 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-13.800454 340000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top_test.
 [treeopen] top_test.u_top_1.
 [treeopen] top_test.u_top_1.datapath.
 [sst_width] 238
-[signals_width] 656
+[signals_width] 436
 [sst_expanded] 1
-[sst_vpaned_height] 560
-@22
+[sst_vpaned_height] 596
+@23
+[color] 7
 top_test.u_top_1.IAD[31:0]
+@22
 top_test.u_top_1.IDT[31:0]
 @28
 top_test.u_top_1.datapath.flush_IfId
@@ -32,9 +34,13 @@ top_test.u_top_1.datapath.rf.rd2_addr[4:0]
 top_test.u_top_1.datapath.rf.data2_out[31:0]
 top_test.u_top_1.datapath.rf.wr_addr[4:0]
 top_test.u_top_1.datapath.rf.data_in[31:0]
+@28
+top_test.u_top_1.datapath.rf.wr_n
+@22
 top_test.u_top_1.datapath.rd2[31:0]
 @28
 top_test.u_top_1.datapath.clk
+[color] 2
 top_test.u_top_1.datapath.stall_if
 @22
 top_test.u_top_1.datapath.rs2Data_IdEx[31:0]
@@ -42,9 +48,6 @@ top_test.u_top_1.datapath.rs2Data_IdEx[31:0]
 top_test.u_top_1.datapath.result_src_IdEx[1:0]
 @22
 top_test.u_top_1.DDT[31:0]
-@28
-top_test.u_top_1.datapath.rf.wr_n
-@22
 top_test.u_top_1.datapath.pc_IdEx[31:0]
 @c00022
 top_test.u_top_1.datapath.regIdEx.q[194:0]
@@ -252,12 +255,17 @@ top_test.u_top_1.datapath.forward_rs2[1:0]
 top_test.u_top_1.datapath.rs2Data_IdEx_fwded[31:0]
 @28
 top_test.u_top_1.datapath.forward_rs1[1:0]
-@23
-top_test.u_top_1.datapath.srcA_E[31:0]
 @22
+top_test.u_top_1.datapath.srcA_E[31:0]
+@28
+[color] 3
 top_test.u_top_1.datapath.alu.mode[3:0]
+@22
+[color] 3
 top_test.u_top_1.datapath.alu.A[31:0]
+[color] 3
 top_test.u_top_1.datapath.alu.B[31:0]
+[color] 3
 top_test.u_top_1.datapath.alu.X[31:0]
 top_test.u_top_1.datapath.immExt_IdEx[31:0]
 @28
@@ -265,6 +273,7 @@ top_test.u_top_1.datapath.pc_src
 @22
 top_test.u_top_1.datapath.immExt_IdEx[31:0]
 top_test.u_top_1.datapath.pcplusOffset[31:0]
+[color] 7
 top_test.u_top_1.IAD[31:0]
 @28
 top_test.u_top_1.WRITE
@@ -288,8 +297,9 @@ top_test.u_top_1.datapath.R_DDT_MemWB[31:0]
 top_test.u_top_1.datapath.pc4_MemWB[31:0]
 top_test.u_top_1.datapath.uout_MemWB[31:0]
 top_test.u_top_1.datapath.result[31:0]
+top_test.u_top_1.datapath.rd_IdEx[4:0]
+top_test.u_top_1.datapath.inst_IfId[31:0]
 @28
-top_test.u_top_1.mreq_M
-top_test.u_top_1.WRITE
+top_test.u_top_1.datapath.result_src_IdEx[1:0]
 [pattern_trace] 1
 [pattern_trace] 0

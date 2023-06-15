@@ -26,7 +26,7 @@
  );
 
    wire [31:0] result, pc_next, pcplus4, pcplusOffset;
-   wire [31:0] rd1, rd2, srcB, immExt, pcplusImm;
+   wire [31:0] rd1_out_D, rd2_out_D, srcB, immExt_D, pcplusImm;
 
    // hazard forward
    wire [1:0] forward_rs1, forward_rs2;
@@ -39,21 +39,22 @@
    );
    wire [31:0] srcA_E;
    mux3 rs1fowarder (
-       .A(rs1Data_IdEx), .B(fwd_out), .C(result),
+       .A(rs1Data_IdEx), .B(fwd_out_ExMem), .C(result),
       .sel(forward_rs1), .X(srcA_E)
    );
    wire [31:0] rs2Data_IdEx_fwded;
    
-   wire [31:0] fwd_out = (IS_lui_ExMem) ? u_out_Exmem : alu_out_ExMem;
+   wire [31:0] fwd_out_ExMem ;
+   assign fwd_out_ExMem = (IS_lui_ExMem) ? u_out_Exmem : alu_out_ExMem;
    mux3 rs2fowarder (
-       .A(rs2Data_IdEx), .B(fwd_out), .C(result),
+       .A(rs2Data_IdEx), .B(fwd_out_ExMem), .C(result),
       .sel(forward_rs2), .X(rs2Data_IdEx_fwded)
    );
 
    // hazard stall
    wire lw_stall , stall_if, stall_id;
    assign lw_stall = result_src_IdEx == 2'b01 &&
-       (inst_IfId[19:15] == rd_IdEx   |  inst_IfId[24:20] == rd_IdEx);
+       (inst_IfId[19:15] == rd_IdEx   |  inst_IfId[24:20] == rd_IdEx); //ストールは一つ前までしか見ない。1cycle差のlw依存の時だけしか使わないので。
    assign stall_if = lw_stall;
    assign stall_id = lw_stall;
 
@@ -74,7 +75,7 @@
       .stall(stall_if), .flush(1'b0), //flushはない
       .d(pc_next), //feed back 
 
-      .q(pc) //~~
+      .q(pc) 
    );
 
    wire [31:0] pc_IfId, pc4_IfId, inst_IfId;  
@@ -115,7 +116,7 @@
       .rd2ext_src(rd2ext_src_D) // for sll, srl, sra (shamt)
    ); 
 
-   extend extend(inst_IfId[31:7], imm_src_D, immExt);
+   extend extend(inst_IfId[31:7], imm_src_D, immExt_D);
 
    rf32x32 rf(
       .clk(clk), .reset(rst),
@@ -123,7 +124,7 @@
       .rd1_addr(inst_IfId[19:15]), .rd2_addr(inst_IfId[24:20]), .wr_addr(rd_MemWB),
       .data_in(result), //feed back
       
-      .data1_out(rd1),.data2_out(rd2)
+      .data1_out(rd1_out_D),.data2_out(rd2_out_D)
    );
 
    wire [31:0] pc_IdEx, pc4_IdEx, rs1Data_IdEx, rs2Data_IdEx, immExt_IdEx;
@@ -137,7 +138,7 @@
       .INIT_VALUE(195'b0)
    ) regIdEx (
       .clk(clk), .rst(rst), .stall(1'b0), .flush(flush_IdEx),
-      .d({pc_IfId, pc4_IfId, inst_IfId[19:15], inst_IfId[24:20], inst_IfId[11:7], rd1, rd2, immExt, //175
+      .d({pc_IfId, pc4_IfId, inst_IfId[19:15], inst_IfId[24:20], inst_IfId[11:7], rd1_out_D, rd2_out_D, immExt_D, //175
          alu_src_D, rd2ext_src_D, IS_jalr_D, IS_Utype_D, IS_lui_D, Jump_D, is_branch_D, alu_ctrl_D, // EX // 11bit 186
          mem_write_D, mreq_D, sgn_ext_src_D, byte_size_D ,// MEM //6bit , 192
          reg_write_D, result_src_D}), //WB 3bit 
@@ -151,7 +152,7 @@
 
 
       //============= EXE STAGE =============//
-   wire [31:0] pc4_ExMem, WD_ForMem, alu_out_ExMem,u_out_Exmem;
+   wire [31:0] pc4_ExMem, rs2Data_ExMem, alu_out_ExMem,u_out_Exmem;
    wire [4:0] rd_ExMem;
    wire mem_write_ExMem, mreq_ExMem, IS_lui_ExMem; // MEM
    wire [1:0] sgn_ext_src_ExMem, byte_size_ExMem; // MEM
@@ -162,11 +163,11 @@
       .INIT_VALUE(143'b0)
    ) regExMem (
       .clk(clk), .rst(rst), .stall(1'b0), .flush(1'b0),
-      .d({pc4_IdEx, alu_out, rs2Data_IdEx, rd_IdEx,// 101
+      .d({pc4_IdEx, alu_out, rs2Data_IdEx_fwded, rd_IdEx,// 101
          mem_write_IdEx, mreq_IdEx, sgn_ext_src_IdEx, byte_size_IdEx, IS_lui_IdEx, // MEM
          reg_write_IdEx, result_src_IdEx, u_out}), //WB
 
-      .q({pc4_ExMem, alu_out_ExMem, WD_ForMem, rd_ExMem, 
+      .q({pc4_ExMem, alu_out_ExMem, rs2Data_ExMem, rd_ExMem, 
          mem_write_ExMem, mreq_ExMem, sgn_ext_src_ExMem, byte_size_ExMem, IS_lui_ExMem, // MEM
          reg_write_ExMem, result_src_ExMem, u_out_Exmem}) // WB
    );
@@ -210,13 +211,13 @@
    );
 
    //   ---   MEM stage   ---
-   assign rd2_forMem = WD_ForMem;
+   assign rd2_forMem = rs2Data_ExMem;
    assign alu_out_forMem = alu_out_ExMem;
    assign mreq_M = mreq_ExMem;
    assign WRITE = mem_write_ExMem;
    assign BYTE_SIZE = byte_size_ExMem;
    wire [31:0] ReadDDT;
-   sgn_extend sgnext(DDT_from_mem, sgn_ext_src_ExMem, ReadDDT);// in DDT, out ReadDDT //~~ これRead間に合うのか？
+   sgn_extend sgnext(DDT_from_mem, sgn_ext_src_ExMem, ReadDDT);// in DDT, out ReadDDT 
 
 
             // assign alu_out = pipeExMem.alu_out;  //~~      
