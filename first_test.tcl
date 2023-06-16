@@ -22,8 +22,10 @@ read_verilog modules/DW_ram_2r_w_s_dff.v
 read_verilog other/mux.v 
 read_verilog test/top_test.v
 
-current_design "top" 
 #read_verilog topmodule
+analyze -format verilog multicycle_dp/mlt_top.v
+elaborate top
+current_design "top" 
 ##current_design "TOP_MODULE_NAME"
 set_max_area 0
 set_max_fanout 64 [current_design]
