@@ -3,6 +3,7 @@
 // import Dmem.dat
 
 //! DON'T USE THIS FILE !!! (deplicated!!!)
+//! あくまでおおまかなtest解説用のファイルです。
 
   `timescale 1ns/1ps
   `define IN_TOTAL 10000  // 最大シミュレーション時間 = 10000 クロックサイクル
