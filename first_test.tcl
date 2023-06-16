@@ -24,6 +24,22 @@ read_verilog test/top_test.v
 
 #read_verilog topmodule
 analyze -format verilog multicycle_dp/mlt_top.v
+analyze -format verilog ALU/ALU.v
+analyze -format verilog ALU/extend.v
+analyze -format verilog ALU/adder.v
+analyze -format verilog ALU/utype_alu.v
+analyze -format verilog ALU/sgn_extend.v
+analyze -format verilog ALU/rd2ext_4to0.v
+analyze -format verilog multicycle_dp/hazard.v
+analyze -format verilog multicycle_dp/mlt_ctrl_datapath.v
+analyze -format verilog multicycle_dp/mlt_dp_regs.v
+analyze -format verilog decoder/mlt_decoder.v
+analyze -format verilog decoder/inst_decoder.v
+analyze -format verilog decoder/signal_controller.v
+analyze -format verilog modules/rf32x32.v
+analyze -format verilog modules/DW_ram_2r_w_s_dff.v
+analyze -format verilog other/mux.v
+analyze -format verilog test/top_test.v
 elaborate top
 current_design "top" 
 ##current_design "TOP_MODULE_NAME"
