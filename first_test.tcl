@@ -6,6 +6,7 @@ set target_library $LIB_MAX_FILE
 ##read_verilog module
 read_verilog ALU/ALU.v
 read_verilog ALU/extend.v
+read_verilog ALU/adder.v
 read_verilog ALU/utype_alu.v 
 read_verilog ALU/sgn_extend.v
 read_verilog ALU/rd2ext_4to0.v

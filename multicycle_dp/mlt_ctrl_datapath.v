@@ -72,6 +72,8 @@
 
    wire [31:0] ReadDDT;
 
+   wire ZERO;
+
    hazard hzd(
       .rs1_IdEx(rs1_IdEx), .rs2_IdEx(rs2_IdEx), 
       .rd_ExMem(rd_ExMem) ,.rd_MemWB(rd_MemWB),
