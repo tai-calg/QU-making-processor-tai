@@ -1,5 +1,5 @@
 
-module top (
+module mlt_top (
     input clk, rst,
     input  ACKD_n, ACKI_n, //俺たちが使う時ある…？
     input [31:0] IDT,
@@ -36,4 +36,3 @@ module top (
 
 
 endmodule
-

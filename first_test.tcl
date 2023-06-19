@@ -7,20 +7,19 @@ set target_library $LIB_MAX_FILE
 read_verilog ALU/ALU.v
 read_verilog ALU/extend.v
 read_verilog ALU/adder.v
-read_verilog ALU/utype_alu.v 
+read_verilog ALU/utype_alu.v
 read_verilog ALU/sgn_extend.v
 read_verilog ALU/rd2ext_4to0.v
-read_verilog multicycle_dp/hazard.v 
-read_verilog multicycle_dp/mlt_ctrl_datapath.v 
-read_verilog multicycle_dp/mlt_dp_regs.v 
+read_verilog multicycle_dp/hazard.v
+read_verilog multicycle_dp/mlt_ctrl_datapath.v
+read_verilog multicycle_dp/mlt_dp_regs.v
 read_verilog multicycle_dp/mlt_top.v
-read_verilog decoder/mlt_decoder.v 
-read_verilog decoder/inst_decoder.v 
+read_verilog decoder/mlt_decoder.v
+read_verilog decoder/inst_decoder.v
 read_verilog decoder/signal_controller.v
-read_verilog modules/rf32x32.v 
-read_verilog modules/DW_ram_2r_w_s_dff.v 
-read_verilog other/mux.v 
-read_verilog test/top_test.v
+read_verilog modules/rf32x32.v
+read_verilog modules/DW_ram_2r_w_s_dff.v
+read_verilog other/mux.v
 
 #read_verilog topmodule
 analyze -format verilog multicycle_dp/mlt_top.v
@@ -39,9 +38,8 @@ analyze -format verilog decoder/signal_controller.v
 analyze -format verilog modules/rf32x32.v
 analyze -format verilog modules/DW_ram_2r_w_s_dff.v
 analyze -format verilog other/mux.v
-analyze -format verilog test/top_test.v
-elaborate top
-current_design "top" 
+elaborate mlt_top
+current_design "mlt_top"
 ##current_design "TOP_MODULE_NAME"
 set_max_area 0
 set_max_fanout 64 [current_design]
