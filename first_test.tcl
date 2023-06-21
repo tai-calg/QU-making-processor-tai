@@ -52,7 +52,7 @@ set_output_delay 0.0 -clock clk [remove_from_collection [all_outputs] clk]
 
 compile -map_effort medium -area_effort high -incremental_mapping
 
-report_timing -max_paths 1
+report_timing -max_paths 3
 report_area
 report_power
 
