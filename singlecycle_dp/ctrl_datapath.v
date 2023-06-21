@@ -31,6 +31,10 @@
 
    wire [31:0] result, pc_next, pcplus4, pcplusOffset;
    wire [31:0] rd1, srcB, immExt, pcplusImm, u_out;
+   wire [31:0] rd2ext;
+   // waiting mechanism
+      wire reg_write_load;
+      wire pc_enable;
    // wire [31:0] DAD;
 
 
@@ -58,7 +62,6 @@
       
       .data1_out(rd1),.data2_out(rd2)
    );
-   wire [31:0] rd2ext;
    rd2ext_4to0 rdext(rd2,rd2ext_src,rd2ext);
    mux mux_src(rd2ext,immExt,alu_src,srcB);
 
@@ -68,9 +71,6 @@
    , .result(u_out)); 
    mux4 mux_result(alu_out, ReadDDT, pcplus4, u_out, result_src, result);
 
-   // waiting mechanism
-      wire reg_write_load;
-      wire pc_enable;
 
       
       load_wait lw(
