@@ -37,8 +37,8 @@ analyze -format verilog decoder/signal_controller.v
 analyze -format verilog modules/rf32x32.v
 analyze -format verilog modules/DW_ram_2r_w_s_dff.v
 analyze -format verilog other/mux.v
-elaborate mlt_top
-current_design "mlt_top"
+elaborate top
+current_design "top"
 ##current_design "TOP_MODULE_NAME"
 set_max_area 0
 set_max_fanout 64 [current_design]
