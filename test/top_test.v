@@ -95,6 +95,8 @@ module top_test;
           begin
 
              Iaddr = u_top_1.IAD;
+             $display("所要クロックサイクル数= %d | Iaddr = %h", i,Iaddr);
+
                // if (IAD == 32'hxxxxxxxx) begin
                //    $display("IAD is 0xxxxxxxxx+4 at time %t", $time);
                //    $stop;
