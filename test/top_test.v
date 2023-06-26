@@ -4,8 +4,8 @@
 module top_test;
 
    //*** parameter declarations ***//
-   parameter CYCLE       = 10;
-   parameter HALF_CYCLE  =  5;
+   parameter CYCLE       = 9;
+   parameter HALF_CYCLE  =  4.5;
    parameter STB         =  8;
    parameter SKEW        =  2;
    parameter BIT_WIDTH   = 32;
@@ -95,6 +95,7 @@ module top_test;
           begin
 
              Iaddr = u_top_1.IAD;
+             $display("所要クロックサイクル数= %d | Iaddr = %h", i,Iaddr);
                // if (IAD == 32'hxxxxxxxx) begin
                //    $display("IAD is 0xxxxxxxxx+4 at time %t", $time);
                //    $stop;
