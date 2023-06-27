@@ -18,7 +18,7 @@ def run_command(cmd):
     return output.decode('utf-8'), error
 
 def save_to_file(filename, data):
-    with open(filename, 'w') as file:
+    with open(filename, 'a') as file:
         file.write(data)
 
 def main(value):
@@ -37,13 +37,15 @@ def main(value):
     area_output, area_error = run_command(cmd3)
     time_output, time_error = run_command(cmd4)
 
-    save_to_file(f'mlt_log_csv.txt', value + ',' + power_output + ',' + area_output+ ',' + time_output + '\n')
+    save_to_file(f'mlt_log_csv.txt', str(value) + ',' + power_output + ',' + area_output+ ',' + time_output + '\n')
+    
 
 
 if __name__ == "__main__":
     # for i = 8.0, 8.1 , ... , 10.0
     for i in range(80, 101):
         i /= 10.0
+        print("value = ", i)
         main(i)
     # main(7)
 
