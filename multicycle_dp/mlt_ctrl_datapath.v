@@ -7,6 +7,18 @@
  import data_path/pc_ff
  
  */
+ `include "modules/rf32x32.v"
+ `include "ALU/ALU.v"
+`include "ALU/utype_alu.v"
+`include "ALU/adder.v"
+`include "ALU/rd2ext_4to0.v"
+`include "ALU/extend.v"
+`include "ALU/sgn_extend.v"
+`include "other/mux.v"
+`include "multicycle_dp/hazard.v"
+`include "multicycle_dp/mlt_dp_regs.v"
+`include "decoder/mlt_decoder.v"
+
 
 
  
@@ -110,7 +122,7 @@
       .WIDTH(32),
       .INIT_VALUE(32'h1_0000)
    ) 
-   pc_ff ( 
+     pc_ff ( 
       .clk(clk), .rst(rst),
       .stall(stall_if), .flush(1'b0), //flushはない
       .d(pc_next), //feed back 

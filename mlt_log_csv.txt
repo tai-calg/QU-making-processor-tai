@@ -1,0 +1,90 @@
+8.0,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.1,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.2,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.3,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.4,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.5,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.6,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.7,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.8,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+8.9,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.0,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.1,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.2,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.3,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.4,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.5,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.6,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.7,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.8,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+9.9,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+10.0,Total Dynamic Power    =   6.2346 mW  (100%)
+,Total cell area:                293352.967222
+,  data arrival time                                                  8.84
+
+7,,,
+7,,,
+7,,,
+7,,,
+7,,,
+7,,,

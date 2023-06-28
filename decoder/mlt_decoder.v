@@ -7,6 +7,8 @@ being imported by top.v
 decoderといってもメインデコーダーとALUデコーダーにわけられる。
 メインでopを消費して、ALUでfunct3, funct7を消費する。
 */
+`include "decoder/signal_controller.v"
+`include "decoder/inst_decoder.v"
 
 
 

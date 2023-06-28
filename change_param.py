@@ -1,12 +1,16 @@
 import subprocess
 import re
 import sys
+# https://chat.openai.com/share/deed6d13-f54e-4cf9-8ece-62365daf62f1
 
 def modify_file(file_path, line_num, old_str, new_str):
     with open(file_path, 'r') as file:
         lines = file.readlines()
         
     line = lines[line_num - 1]
+    print(line)
+    print("old_str = ", old_str)
+    print("new_str = ", new_str)
     lines[line_num - 1] = line.replace(old_str, new_str)
 
     with open(file_path, 'w') as file:
@@ -43,11 +47,11 @@ def main(value):
 
 if __name__ == "__main__":
     # for i = 8.0, 8.1 , ... , 10.0
-    for i in range(80, 101):
-        i /= 10.0
-        print("value = ", i)
-        main(i)
-    # main(7)
+    # for i in range(80, 101):
+    #     i /= 10.0
+    #     print("value = ", i)
+    #     main(i)
+    main(7)
 
 # if __name__ == "__main__":
     # if len(sys.argv) != 2:

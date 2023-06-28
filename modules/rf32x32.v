@@ -1,5 +1,6 @@
 // import DW_ram_2r_w_s_dff
 // imported by ctrl_datapath.v
+`include "modules/DW_ram_2r_w_s_dff.v"
 
 `define  ZERO           1'b0           // Rename to Zero
 `define  LOW            1'b0           // Rename to Zero

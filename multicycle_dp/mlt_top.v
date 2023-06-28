@@ -1,3 +1,4 @@
+`include "multicycle_dp/mlt_ctrl_datapath.v"
 
 module mlt_top (
     input clk, rst,
