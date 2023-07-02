@@ -44,7 +44,7 @@ current_design "mlt_top"
 set_max_area 0
 set_max_fanout 64 [current_design]
 
-create_clock -period 9.00 clk
+create_clock -period 7.90 clk
 set_clock_uncertainty -setup 0.0 [get_clock clk]
 set_clock_uncertainty -hold 0.0 [get_clock clk]
 set_input_delay  0.0 -clock clk [remove_from_collection [all_inputs] clk]
