@@ -17,7 +17,9 @@ import ctrl_datapath.v
                .DDT(DDT) // data[31:0]
                );
 */
-
+`include "decoder/decoder.v"
+`include "singlecycle_dp/ctrl_datapath.v"
+`include "ALU/sgn_extend.v"
 
 module top (
     input clk, rst,

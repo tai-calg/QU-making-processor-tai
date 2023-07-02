@@ -1,14 +1,14 @@
- /*
- import modules/rf32x32
- import alu/ALU
- import alu/utype_alu
- import other/mux
- import alu/extend
- import data_path/pc_ff
- 
- */
- `include "modules/rf32x32.v"
- `include "ALU/ALU.v"
+/*
+import modules/rf32x32
+import alu/ALU
+import alu/utype_alu
+import other/mux
+import alu/extend
+import data_path/pc_ff
+
+*/
+`include "modules/rf32x32.v"
+`include "ALU/ALU.v"
 `include "ALU/utype_alu.v"
 `include "ALU/adder.v"
 `include "ALU/rd2ext_4to0.v"

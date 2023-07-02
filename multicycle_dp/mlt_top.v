@@ -1,6 +1,6 @@
 `include "multicycle_dp/mlt_ctrl_datapath.v"
 
-module mlt_top (
+module top (
     input clk, rst,
     input  ACKD_n, ACKI_n, //俺たちが使う時ある…？
     input [31:0] IDT,

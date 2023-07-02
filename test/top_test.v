@@ -45,7 +45,7 @@ module top_test;
    reg [BYTE_SIZE-1:0]   DATA_Dmem[DMEM_START:DMEM_START + DMEM_SIZE];   // use in readmemh (Data mem)
 
    //*** module instantations ***//
-   mlt_top u_top_1(//Inputs
+   top u_top_1(//Inputs
                .clk(clk), .rst(rst),
                .ACKD_n(ACKD_n), .ACKI_n(ACKI_n),
                .IDT(IDT), .OINT_n(OINT_n),

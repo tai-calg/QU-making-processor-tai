@@ -7,6 +7,16 @@
  import data_path/pc_ff
  
  */
+`include "modules/rf32x32.v"
+`include "ALU/ALU.v"
+`include "ALU/utype_alu.v"
+`include "ALU/adder.v"
+`include "ALU/rd2ext_4to0.v"
+`include "ALU/extend.v"
+`include "other/mux.v"
+`include "singlecycle_dp/pc_ff.v"
+`include "decoder/load_wait.v"
+
 
 
  
