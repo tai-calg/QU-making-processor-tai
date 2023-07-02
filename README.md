@@ -31,6 +31,9 @@ https://tex2e.github.io/blog/makefile/automatic-variables
 
 ```dc_shell-t -f first_test.tcl | tee log```
 
+で実行できます。`| tee ` によってlogファイルに結果が記録されます。
+
+  - クリティカルパスの探索決定方法 
 top_test.vの
 
 ```
@@ -40,7 +43,7 @@ top_test.vの
 
 および、
 
-~~~.tclの
+.tclファイルの
 
 ```create_clock -period 7.90 clk```
 
