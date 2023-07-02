@@ -44,7 +44,7 @@ current_design "mlt_top"
 set_max_area 0
 set_max_fanout 64 [current_design]
 
-create_clock -period 7.90 clk
+create_clock -period 8.00 clk
 set_clock_uncertainty -setup 0.0 [get_clock clk]
 set_clock_uncertainty -hold 0.0 [get_clock clk]
 set_input_delay  0.0 -clock clk [remove_from_collection [all_inputs] clk]
@@ -52,7 +52,7 @@ set_output_delay 0.0 -clock clk [remove_from_collection [all_outputs] clk]
 
 compile -map_effort medium -area_effort high -incremental_mapping
 
-report_timing -max_paths 3
+report_timing -max_paths 2
 report_area
 report_power
 

@@ -261,29 +261,6 @@ import data_path/pc_ff
    //============= WB STAGE =============//
    mux4 mux_result(alu_out_MemWB, R_DDT_MemWB, pc4_MemWB, uout_MemWB, result_src_MemWB, result);
 
-
-
-
-
-
-
-
-   // waiting mechanism
-   /* maybe not need as pipeline.
-      wire reg_write_load;
-      wire pc_enable;
-
-      
-      load_wait lw(
-         .clk(clk),
-         .opcode(inst[6:0]),
-
-         .pc_enable(pc_enable),
-         .reg_write_load(reg_write_load)
-      );
-      assign reg_write_and = reg_write_load && reg_write;
-      */
-
 endmodule
 
 

@@ -4,8 +4,8 @@
 module top_test;
 
    //*** parameter declarations ***//
-   parameter CYCLE       = 7.9;
-   parameter HALF_CYCLE  =  3.95;
+   parameter CYCLE       = 8;
+   parameter HALF_CYCLE  =  4;
    parameter STB         =  8;
    parameter SKEW        =  2;
    parameter BIT_WIDTH   = 32;
@@ -69,8 +69,8 @@ module top_test;
      //*** initialize ***//
      initial begin
         //*** read input data ***//
-        $readmemh("./Dmem.dat", DATA_Dmem);
-        $readmemh("./Imem.dat", DATA_Imem);
+        $readmemh("./test/Dmem.dat", DATA_Dmem);
+        $readmemh("./test/Imem.dat", DATA_Imem);
 
         Max_Daddr = 0;
 
@@ -95,7 +95,7 @@ module top_test;
           begin
 
              Iaddr = u_top_1.IAD;
-             $display("所要クロックサイクル数= %d | Iaddr = %h", i,Iaddr);
+            //  $display("所要クロックサイクル数= %d | Iaddr = %h", i,Iaddr);
                // if (IAD == 32'hxxxxxxxx) begin
                //    $display("IAD is 0xxxxxxxxx+4 at time %t", $time);
                //    $stop;
