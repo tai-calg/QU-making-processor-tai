@@ -33,16 +33,24 @@ https://tex2e.github.io/blog/makefile/automatic-variables
 
 top_test.vの
 
+```
    parameter CYCLE       = 7.9;
    parameter HALF_CYCLE  =  3.95;
+```
 
-***.tclの
+および、
+
+~~~.tclの
+
 ```create_clock -period 7.90 clk```
+
 を調整してslack(MET) が負にならない最小値を探っていきます。data arrival time がクリティカルパスにかかる時間です。
 
 ```ncverilog pipeline/test/top_test.sv pipeline/top.v```
+
 のようにしてコンパイルと実行を行います。プロジェクトのトップディレクトリで行ってください。そうしなければreadmesh("path")が正しくファイルをReadできません。
-    実行の最後にprintされる 2178681750 PS + 0がスクリプトの実行にかかった時間です。
+
+実行の最後にprintされる ”2178681750 PS + 0” がスクリプトの実行にかかった時間です。
 
 ## TODO
 

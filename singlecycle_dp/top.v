@@ -43,6 +43,7 @@ module top (
     wire IS_lui,IS_Utype,IS_jalr,mem_write,reg_write,pc_src,alu_src,rd2ext_src;
     wire [31:0] rd2;
     wire pc_enable;
+    wire [31:0] ReadDDT;
 
     decoder dec(
         // .clk(clk), .rst(rst), マルチだとデコーダーもタイミングを合わせるために同期する
@@ -94,8 +95,7 @@ module top (
         .rd2(rd2), //変更：(DDT) → (rd2)
         .alu_out(DAD)
     );
-    // assign DAD = ;
-    wire [31:0] ReadDDT;
+    
     sgn_extend sgnext(DDT, sgn_ext_src, ReadDDT);
     assign DDT = WRITE ? rd2 : 32'hz; 
 

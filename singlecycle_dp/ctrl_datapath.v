@@ -41,6 +41,8 @@
 
    wire [31:0] result, pc_next, pcplus4, pcplusOffset;
    wire [31:0] rd1, srcB, immExt, pcplusImm, u_out;
+   wire pc_enable;
+
    // wire [31:0] DAD;
 
 
@@ -80,7 +82,6 @@
 
    // waiting mechanism
       wire reg_write_load;
-      wire pc_enable;
 
       
       load_wait lw(
