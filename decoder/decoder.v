@@ -8,7 +8,8 @@ decoderといってもメインデコーダーとALUデコーダーにわけら�
 メインでopを消費して、ALUでfunct3, funct7を消費する。
 */
 
-
+`include "decoder/inst_decoder.v"
+`include "decoder/signal_controller.v"
 
 module decoder(
     // input clk, rst, 

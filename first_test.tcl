@@ -4,6 +4,7 @@ set link_library $LIB_MAX_FILE
 set target_library $LIB_MAX_FILE
 
 ##read_verilog module
+read_verilog multicycle_dp/mlt_top.v
 read_verilog ALU/ALU.v
 read_verilog ALU/extend.v
 read_verilog ALU/adder.v
@@ -13,7 +14,6 @@ read_verilog ALU/rd2ext_4to0.v
 read_verilog multicycle_dp/hazard.v
 read_verilog multicycle_dp/mlt_ctrl_datapath.v
 read_verilog multicycle_dp/mlt_dp_regs.v
-read_verilog multicycle_dp/mlt_top.v
 read_verilog decoder/mlt_decoder.v
 read_verilog decoder/inst_decoder.v
 read_verilog decoder/signal_controller.v
