@@ -46,7 +46,7 @@ set_max_fanout 64 [current_design]
 create_clock -period 11.00 clk
 set_clock_uncertainty -setup 0.0 [get_clock clk]
 set_clock_uncertainty -hold 0.0 [get_clock clk]
-set_input_delay   -clock clk [remove_from_collection [all_inputs] clk]
+set_input_delay  5.5 -clock clk [remove_from_collection [all_inputs] clk]
 set_output_delay 0.0 -clock clk [remove_from_collection [all_outputs] clk]
 
 compile -map_effort medium -area_effort high -incremental_mapping
