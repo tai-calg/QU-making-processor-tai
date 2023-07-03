@@ -34,14 +34,6 @@ https://tex2e.github.io/blog/makefile/automatic-variables
 で実行できます。`| tee ` によってlogファイルに結果が記録されます。
 
   - クリティカルパスの探索決定方法 
-top_test.vの
-
-```
-   parameter CYCLE       = 7.9;
-   parameter HALF_CYCLE  =  3.95;
-```
-
-および、
 
 .tclファイルの
 

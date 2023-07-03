@@ -4,8 +4,8 @@
 module top_test;
 
    //*** parameter declarations ***//
-   parameter CYCLE       = 100;
-   parameter HALF_CYCLE  =  50;
+   parameter CYCLE       = 8;
+   parameter HALF_CYCLE  =  4;
    parameter STB         =  8;
    parameter SKEW        =  2;
    parameter BIT_WIDTH   = 32;
@@ -127,7 +127,7 @@ module top_test;
 
    //*** description for wave form ***//
    initial begin
-      // $monitor($stime," PC=%h INST=%h", IAD, IDT);
+      $monitor($stime," PC=%h INST=%h", IAD, IDT);
       //ここから2行はIcarus Verilog用(手元で動かすときに使ってください)
 	  $dumpfile("top_test.vcd");
       $dumpvars(0, u_top_1);
