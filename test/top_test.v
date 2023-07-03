@@ -4,8 +4,8 @@
 module top_test;
 
    //*** parameter declarations ***//
-   parameter CYCLE       = 50;
-   parameter HALF_CYCLE  =  25;
+   parameter CYCLE       = 100;
+   parameter HALF_CYCLE  =  50;
    parameter STB         =  8;
    parameter SKEW        =  2;
    parameter BIT_WIDTH   = 32;
