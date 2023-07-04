@@ -6,6 +6,7 @@ import load_wait;
 module signal_controller(
     input [6:0] opcode,
     input [2:0] funct3 , //for shamt judge.
+    input flush,
 
     output wire [1:0] result_src, 
     output wire mem_write,
@@ -61,6 +62,10 @@ module signal_controller(
 
     assign {result_src, mem_write, alu_src, imm_src, reg_write, alu_op, mreq, 
         is_branch, Jump, IS_Utype, IS_lui, IS_jalr} = main_decoder(opcode,funct3);
+    
+   assign mem_write = flush ? 1'b0 : mem_write;//(35)
+   assign reg_write = flush ? 1'b0 : reg_write;
+
 
 endmodule
 

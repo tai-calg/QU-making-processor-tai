@@ -16,6 +16,7 @@
 `include "other/mux.v"
 `include "singlecycle_dp/pc_ff.v"
 `include "decoder/load_wait.v"
+`include "multicycle_dp/mlt_dp_regs.v"
 
 
 
@@ -36,7 +37,8 @@
    output wire ZERO,
    output wire [31:0] pc, // for IAD
    output wire [31:0] rd2, // to DDT
-   output wire [31:0] alu_out // to DAD
+   output wire [31:0] alu_out, // to DAD
+   output wire flush
  );
 
    wire [31:0] result, pc_next, pcplus4, pcplusOffset;
@@ -45,11 +47,27 @@
 
    // wire [31:0] DAD;
 
+          wire load_ff;
+    wire isLoad = inst[6:0] == 7'b0000011;
+    wire stall = isLoad && load_ff == 1'b0;
+   dp_reg #(
+      .WIDTH(1),
+      .INIT_VALUE(1'b0)
+   ) stall_ff(
+      .clk(clk), .rst(rst),
+      .stall(~isLoad), .flush(1'b0),
+      .d(~load_ff), //feed back 
+
+      .q(load_ff)
+   );
+   // assign reg_write = reg_write && ~stall;
+   assign flush = stall; 
+
 
    pc_ff pcff( //#(CYCLE) サイクルいる？ここまでCYCLE持ってくるの？
       .clk(clk), .rst(rst),
       .d(pc_next), //feed back 
-      .pc_enable(pc_enable),
+      .pc_enable(~stall),
 
       .q(pc)
    );
@@ -64,7 +82,7 @@
 
    rf32x32 rf(
       .clk(~clk), .reset(rst),
-      .wr_n(~reg_write_and),// wr_n はLowで書き込み！
+      .wr_n(~reg_write),// wr_n はLowで書き込み！
       .rd1_addr(inst[19:15]), .rd2_addr(inst[24:20]), .wr_addr(inst[11:7]),
       .data_in(result), //feed back
       
@@ -80,17 +98,17 @@
    , .result(u_out)); 
    mux4 mux_result(alu_out, ReadDDT, pcplus4, u_out, result_src, result);
 
-   // waiting mechanism
-      wire reg_write_load;
+   // // waiting mechanism
+   //    wire reg_write_load;
 
       
-      load_wait lw(
-         .clk(clk),
-         .opcode(inst[6:0]),
+   //    load_wait lw(
+   //       .clk(clk),
+   //       .opcode(inst[6:0]),
 
-         .pc_enable(pc_enable),
-         .reg_write_load(reg_write_load)
-      );
-      assign reg_write_and = reg_write_load && reg_write;
+   //       .pc_enable(pc_enable),
+   //       .reg_write_load(reg_write_load)
+   //    );
+   //    assign reg_write_and = reg_write_load && reg_write;
 
 endmodule

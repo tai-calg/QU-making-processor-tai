@@ -49,6 +49,7 @@ module top (
         // .clk(clk), .rst(rst), マルチだとデコーダーもタイミングを合わせるために同期する
         .inst(IDT),
         .ZERO(ZERO), //still not defined 
+        .flush(flush),
 
         .pc_src(pc_src),
         .result_src(result_src),
@@ -93,7 +94,8 @@ module top (
         .ZERO(ZERO),
         .pc(IAD),
         .rd2(rd2), //変更：(DDT) → (rd2)
-        .alu_out(DAD)
+        .alu_out(DAD),
+        .flush(flush)
     );
     
     sgn_extend sgnext(DDT, sgn_ext_src, ReadDDT);

@@ -15,6 +15,7 @@ module decoder(
     // input clk, rst, 
     input [31:0] inst,
     input ZERO, // ZERO : for branch judge
+    input flush,
 
     output pc_src ,
     output [1:0] result_src,
@@ -48,6 +49,7 @@ module decoder(
     signal_controller asig(
         .opcode(inst[6:0]),
         .funct3(inst[14:12]),
+        .flush(flush),
 
         .Jump(Jump),
         .result_src(result_src),
@@ -75,7 +77,7 @@ module decoder(
         .rd2ext_src(rd2ext_src)
     ); 
 
-    assign pc_src = is_branch & ZERO | Jump; // for branch judge
+    assign pc_src = flush ? 1'b0 : is_branch & ZERO | Jump; // for branch judge
 
 endmodule
 
