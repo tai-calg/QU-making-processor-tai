@@ -7,7 +7,7 @@ module load_wait(
 );
   reg r_loadCount = 1'b0;
 
-  always @(posedge ~clk) begin
+  always @(negedge clk) begin 
     if (opcode[6:2] == 5'b00000) begin // Load type
       if (r_loadCount) begin
       // Load count 1

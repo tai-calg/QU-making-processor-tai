@@ -145,6 +145,7 @@ module top_test;
          if(CIL == IMEM_LATENCY)
            begin
               IDT = {DATA_Imem[Iaddr], DATA_Imem[Iaddr+1], DATA_Imem[Iaddr+2], DATA_Imem[Iaddr+3]};
+              //! だからここにIaddrをもう一つ付け足して一度で２命令分読み込めばいける→どこで並列依存性を確認すればいい？
               ACKI_n = 1'b0;
               CIL = 0;
            end
