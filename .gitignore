@@ -6,6 +6,7 @@
 test/*.vcd
 *.vcd
 *.vvp
+*.gtkw
 test/*.vvp
 local.txt
 /taichi

@@ -1,5 +1,5 @@
-# LIBRARY :=  multicycle_dp/mlt_top.v  
-LIBRARY := singlecycle_dp/top.v 
+LIBRARY :=  multicycle_dp/mlt_top.v  
+# LIBRARY := singlecycle_dp/top.v 
 	
 
 
