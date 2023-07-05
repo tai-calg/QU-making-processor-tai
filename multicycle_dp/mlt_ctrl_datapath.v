@@ -16,26 +16,47 @@ import data_path/pc_ff
 `include "ALU/extend.v"
 `include "ALU/sgn_extend.v"
 `include "other/mux.v"
-`include "multicycle_dp/hazard.v"
+`include "multicycle_dp/super_hazard.v"
 `include "multicycle_dp/mlt_dp_regs.v"
 `include "decoder/mlt_decoder.v"
 
 
 
  
- // catch decoder output and connect to other components. then control all arthitecture.
- // all outputs are for memory.
+/*
+
+    ctrl_datapath datapath1(
+        .clk(clk), .rst(rst),
+        .inst_alp(IDT1),
+        .inst_bta(IDT2),
+        .DDT_from_mem_alp(DDT1),
+        .DDT_from_mem_bta(DDT2),
+
+        .pc(IAD), 
+        .rd2_forMem_alp(rd2_1), 
+        .rd2_forMem_bta(rd2_2), 
+        .alu_out_forMem_alp(DAD1),
+        .alu_out_forMem_bta(DAD2),
+        .WRITE_alp(WRITE1),
+        .WRITE_bta(WRITE2),
+        .mreq_M_alp(mreq_M_1),
+        .mreq_M_bta(mreq_M_2),
+        .BYTE_SIZE_alp(SIZE1),
+        .BYTE_SIZE_bta(SIZE2)
+    );
+*/
  module ctrl_datapath (
    input wire clk, rst , 
-   input wire [31:0] inst,
-   input wire [31:0] DDT_from_mem,
+   input wire [31:0] inst_alp, inst_bta,
+   input wire [31:0] DDT_from_mem_alp, DDT_from_mem_bta,
+   input wire is_plus8,
 
 
    output wire [31:0] pc, // for IAD 
-   output wire [31:0] rd2_forMem, // to DDT //これ含む以下2行って,タイミング合わせなきゃいけないよね？つまりrd2_output みたいに新たな変数にして、それにpipe**.rs2Dataを代入する形という意味。
-   output wire [31:0] alu_out_forMem, // to DAD
-   output wire WRITE, mreq_M,
-   output wire [1:0] BYTE_SIZE
+   output wire [31:0] rd2_forMem_alp, rd2_forMem_bta,  // to DDT
+   output wire [31:0] alu_out_forMem_alp, alu_out_forMem_bta  // to DAD
+   output wire WRITE_alp, WRITE_bta, mreq_M_alp, mreq_M_bta, 
+   output wire [1:0] BYTE_SIZE_alp, BYTE_SIZE_bta
  );
 
    wire [31:0] result, pc_next, pcplus4, pcplusOffset;
@@ -92,6 +113,8 @@ import data_path/pc_ff
 
    //============= FETCH STAGE =============//
    adder add4(pc,4,pcplus4); //生のpc, pc+4 は 一番初め(IFステージ)のpc, pc+4
+   adder add8(pc,8,pcplus8); 
+   // pcmux pcMux(pcplus4, pcplus8, pcplusOffset, pc_src, pcplusImm);
    dp_reg #(
       .WIDTH(32),
       .INIT_VALUE(32'h1_0000)
@@ -178,7 +201,7 @@ import data_path/pc_ff
 
       //============= EXE STAGE =============//
 
-   hazard hzd(
+      hazard hzd(
          .rs1_IdEx(rs1_IdEx), .rs2_IdEx(rs2_IdEx), 
          .rd_ExMem(rd_ExMem) ,.rd_MemWB(rd_MemWB),
          .reg_write_ExMem(reg_write_ExMem), .reg_write_MemWB(reg_write_MemWB),
@@ -219,12 +242,12 @@ import data_path/pc_ff
 
    assign pc_src = is_branch_IdEx & ZERO | Jump_IdEx; // for branch judge
    adder addimm(pc_IdEx, immExt_IdEx , pcplusImm);
-   mux pcoffsetmux(pcplusImm, alu_out, IS_jalr_IdEx, pcplusOffset); //~~ pipeExMem.alu_out. 
+   mux pcoffsetmux(pcplusImm, alu_out, IS_jalr_IdEx, pcplusOffset); 
    //おそらくこれでExステージからPCsrcが確定して次のPCの判定に使われる
    
-   
-   mux pcmux(pcplus4,pcplusOffset, pc_src, pc_next);
-   // ここの前にpc+4 or pc+8 or pc + offset を判定する機構+nop生成機構。
+   mux pcmux48 (pcplus4, pcplus8, is_plus8, pcplus4or8);
+   mux pcmux(pcplus4or8, pcplusOffset, pc_src, pc_next); 
+   //nop生成機構はtop.vで実装。inst_btaにnopを入れるため。
 
 
    rd2ext_4to0 rdext(rs2Data_IdEx_fwded, rd2ext_src_IdEx, rd2ext);

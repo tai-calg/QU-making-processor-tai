@@ -1,4 +1,4 @@
-module hazard (
+module super_hazard (
     input [4:0] rs1_IdEx, rs2_IdEx, rd_ExMem_alp, rd_ExMem_bta, rd_MemWB_alp, rd_MemWB_bta,
     input reg_write_ExMem_alp, reg_write_ExMem_bta, reg_write_MemWB_alp, reg_write_MemWB_bta,
 
