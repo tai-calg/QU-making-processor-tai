@@ -23,23 +23,30 @@ module top_test;
    reg       clk,rst;
    reg       ACKD_n;
    reg       ACKI_n;
-   reg [BIT_WIDTH-1:0] IDT;
+   reg [BIT_WIDTH-1:0] IDT1;
+   reg [BIT_WIDTH-1:0] IDT2;
    reg [2:0]           OINT_n;
    reg [BIT_WIDTH-1:0] Reg_temp;
 
    wire [BIT_WIDTH-1:0] IAD;
-   wire [BIT_WIDTH-1:0] DAD;
-   wire                 MREQ;
-   wire                 WRITE;
-   wire [1:0]           SIZE;
+   wire [BIT_WIDTH-1:0] DAD1;
+   wire [BIT_WIDTH-1:0] DAD2;
+   wire                 MREQ1;
+   wire                 MREQ2;
+   wire                 WRITE1;
+   wire                 WRITE2;
+   wire [1:0]           SIZE1;
+   wire [1:0]           SIZE2;
    wire                 IACK_n;
-   wire [BIT_WIDTH-1:0] DDT;
+   wire [BIT_WIDTH-1:0] DDT11;
+   wire [BIT_WIDTH-1:0] DDT12;
+
 
    integer              i;
    integer              CIL, CDLL, CDSL;  // counter for emulate memory access latency
    integer              Reg_data, Dmem_data, Imem_data;   // file pointer for "Reg_out.dat", "Dmem.out"
    integer              Max_Daddr;  // integer for remenbering maximum accessed addr of data memory
-   reg [BIT_WIDTH-1:0]  Daddr, Iaddr;
+   reg [BIT_WIDTH-1:0]  Daddr1, Daddr2, Iaddr;
 
    reg [BYTE_SIZE-1:0]   DATA_Imem[IMEM_START:IMEM_START + IMEM_SIZE];   // use in readmemh  (Instruction mem)
    reg [BYTE_SIZE-1:0]   DATA_Dmem[DMEM_START:DMEM_START + DMEM_SIZE];   // use in readmemh (Data mem)
@@ -48,15 +55,20 @@ module top_test;
    top u_top_1(//Inputs
                .clk(clk), .rst(rst),
                .ACKD_n(ACKD_n), .ACKI_n(ACKI_n),
-               .IDT(IDT), .OINT_n(OINT_n),
+               .IDT1(IDT1), .OINT_n(OINT_n),
+               .IDT2(IDT2),
 
                //Outputs
-               .IAD(IAD), .DAD(DAD),
-               .MREQ(MREQ), .WRITE(WRITE),
-               .SIZE(SIZE), .IACK_n(IACK_n),
+               .IAD(IAD), 
+               .DAD1(DAD1), .DAD2(DAD2),
+               .MREQ1(MREQ1), .MREQ2(MREQ2), 
+               .WRITE1(WRITE1), .WRITE2(WRITE2),
+               .SIZE1(SIZE1), .SIZE2(SIZE2),
+               .IACK_n(IACK_n),
 
                //Inout
-               .DDT(DDT)
+               .DDT1(DDT1),
+               .DDT2(DDT2)
                );
 
      //*** clock generation ***//
@@ -94,23 +106,27 @@ module top_test;
         for (i = 0; i < `IN_TOTAL; i =i +1)
           begin
 
-             Iaddr = u_top_1.IAD;
-            //  $display("所要クロックサイクル数= %d | Iaddr = %h", i,Iaddr);
+               //  $display("所要クロックサイクル数= %d | Iaddr = %h", i,Iaddr);
                // if (IAD == 32'hxxxxxxxx) begin
                //    $display("IAD is 0xxxxxxxxx+4 at time %t", $time);
                //    $stop;
                // end
-             fetch_task1;
+             Iaddr = u_top_1.IAD;
+             fetch_task1; //F stage
 
-             Daddr = u_top_1.DAD;
+             Daddr1 = u_top_1.DAD1;
+             Daddr2 = u_top_1.DAD2;
              load_task1;
+             load_task2;
              store_task1;
+             store_task2;
 
              // #(STB);
              #CYCLE;
-             release DDT;
+             release DDT1;
+             release DDT2;
              // rerurn if inst is xxxx
-               if (IDT == 32'hxxxxxxxx)
+               if (IDT1 == 32'hxxxxxxxx || IDT2 == 32'hxxxxxxxx)
                   begin
                      $display("\nReach xxxx.");
                      $finish;
@@ -119,7 +135,7 @@ module top_test;
 
         $display("\nReach IN_TOTAL.");
 
-        dump_task1;
+        dump_task;
 
         $finish;
 
@@ -127,7 +143,7 @@ module top_test;
 
    //*** description for wave form ***//
    initial begin
-      $monitor($stime," PC=%h INST=%h", IAD, IDT);
+      $monitor($stime," PC=%h INST1=%h and INST2=%h", IAD, IDT1 ,IDT2);
       //ここから2行はIcarus Verilog用(手元で動かすときに使ってください)
 	  $dumpfile("top_test.vcd");
       $dumpvars(0, u_top_1);
@@ -144,14 +160,16 @@ module top_test;
          CIL = CIL + 1;
          if(CIL == IMEM_LATENCY)
            begin
-              IDT = {DATA_Imem[Iaddr], DATA_Imem[Iaddr+1], DATA_Imem[Iaddr+2], DATA_Imem[Iaddr+3]};
-              //! だからここにIaddrをもう一つ付け足して一度で２命令分読み込めばいける→どこで並列依存性を確認すればいい？
+              IDT1 = {DATA_Imem[Iaddr], DATA_Imem[Iaddr+1], DATA_Imem[Iaddr+2], DATA_Imem[Iaddr+3]};
+              IDT2 = {DATA_Imem[Iaddr+4], DATA_Imem[Iaddr+5], DATA_Imem[Iaddr+6], DATA_Imem[Iaddr+7]};
+              //! ここにIaddrをもう一つ付け足して一度で２命令分読み込めばいける→どこで並列依存性を確認すればいい？
               ACKI_n = 1'b0;
               CIL = 0;
            end
          else
            begin
-              IDT = 32'hxxxxxxxx;
+              IDT1 = 32'hxxxxxxxx;
+              IDT2 = 32'hxxxxxxxx;
               ACKI_n = 1'b1;
            end // else: !if(CIL == IMEM_LATENCY)
       end
@@ -159,33 +177,33 @@ module top_test;
 
    task load_task1;
       begin
-         if(u_top_1.MREQ && !u_top_1.WRITE)
+         if(u_top_1.MREQ1 && !u_top_1.WRITE1)
            begin
 
-              if (Max_Daddr < Daddr)
+              if (Max_Daddr < Daddr1)
                 begin
-                   Max_Daddr = Daddr;
+                   Max_Daddr = Daddr1;
                 end
 
               CDLL = CDLL + 1;
               CDSL = 0;
               if(CDLL == DMEM_LATENCY)
                 begin
-                   if(SIZE == 2'b00)
+                   if(SIZE1 == 2'b00)
                      begin
-                        force DDT[BIT_WIDTH-1:0] = {DATA_Dmem[Daddr], DATA_Dmem[Daddr + 1],
-                                                    DATA_Dmem[Daddr + 2], DATA_Dmem[Daddr + 3]};
+                        force DDT1[BIT_WIDTH-1:0] = {DATA_Dmem[Daddr1], DATA_Dmem[Daddr1 + 1],
+                                                    DATA_Dmem[Daddr1 + 2], DATA_Dmem[Daddr1 + 3]};
 
                      end
-                   else if(SIZE == 2'b01) //half
+                   else if(SIZE1 == 2'b01) //half
                      begin
-                        force DDT[BIT_WIDTH-1:0] = {{16{1'b0}}, DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b10} - Daddr[1:0]],
-													DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b10} - Daddr[1:0] + 1]};
+                        force DDT1[BIT_WIDTH-1:0] = {{16{1'b0}}, DATA_Dmem[{Daddr1[BIT_WIDTH-1:2],2'b10} - Daddr1[1:0]],
+													DATA_Dmem[{Daddr1[BIT_WIDTH-1:2],2'b10} - Daddr1[1:0] + 1]};
                      end
                    else
                      begin //byte
-                        force DDT[BIT_WIDTH-1:0] = {{24{1'b0}}, DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b11} - Daddr[1:0]]};
-                     end // else: !if(SIZE == 2'b01)
+                        force DDT1[BIT_WIDTH-1:0] = {{24{1'b0}}, DATA_Dmem[{Daddr1[BIT_WIDTH-1:2],2'b11} - Daddr1[1:0]]};
+                     end // else: !if(SIZE1 == 2'b01)
 
 
                    ACKD_n = 1'b0;
@@ -196,26 +214,69 @@ module top_test;
                 begin
                    ACKD_n = 1'b1;
                 end // else: !if(CDLL == DMEM_LATENCY)
-           end // if (u_top_1.MREQ && !u_top_1.WRITE)
+           end // if (u_top_1.MREQ && !u_top_1.WRITE1)
       end
    endtask // load_task1
 
-   task store_task1;
+   task load_task2;
       begin
-         if(u_top_1.MREQ && u_top_1.WRITE)
+         if(u_top_1.MREQ2 && !u_top_1.WRITE2)
            begin
 
-              if (Daddr == EXIT_ADDR)
+              if (Max_Daddr < Daddr2)
+                begin
+                   Max_Daddr = Daddr2;
+                end
+
+              CDLL = CDLL + 1;
+              CDSL = 0;
+              if(CDLL == DMEM_LATENCY)
+                begin
+                   if(SIZE2 == 2'b00)
+                     begin
+                        force DDT2[BIT_WIDTH-1:0] = {DATA_Dmem[Daddr2], DATA_Dmem[Daddr2 + 1],
+                                                    DATA_Dmem[Daddr2 + 2], DATA_Dmem[Daddr2 + 3]};
+
+                     end
+                   else if(SIZE2 == 2'b01) //half
+                     begin
+                        force DDT2[BIT_WIDTH-1:0] = {{16{1'b0}}, DATA_Dmem[{Daddr2[BIT_WIDTH-1:2],2'b10} - Daddr2[1:0]],
+													DATA_Dmem[{Daddr2[BIT_WIDTH-1:2],2'b10} - Daddr2[1:0] + 1]};
+                     end
+                   else
+                     begin //byte
+                        force DDT2[BIT_WIDTH-1:0] = {{24{1'b0}}, DATA_Dmem[{Daddr2[BIT_WIDTH-1:2],2'b11} - Daddr2[1:0]]};
+                     end // else: !if(SIZE2 == 2'b01)
+
+
+                   ACKD_n = 1'b0;
+                   CDLL = 0;
+
+                end // if (CDLL == DMEM_LATENCY)
+              else
+                begin
+                   ACKD_n = 1'b1;
+                end // else: !if(CDLL == DMEM_LATENCY)
+           end 
+      end
+   endtask // load_task2
+
+   task store_task1;
+      begin
+         if(u_top_1.MREQ1 && u_top_1.WRITE1)
+           begin
+
+              if (Daddr1 == EXIT_ADDR)
                 begin
                    $display("\nExited by program.");
-                   dump_task1;
+                   dump_task;
                    $finish;
                 end
-              else if (Daddr != STDOUT_ADDR)
+              else if (Daddr1 != STDOUT_ADDR)
                 begin
-                   if (Max_Daddr < Daddr)
+                   if (Max_Daddr < Daddr1)
                      begin
-                        Max_Daddr = Daddr;
+                        Max_Daddr = Daddr1;
                      end
                 end
 
@@ -224,33 +285,33 @@ module top_test;
 
               if(CDSL == DMEM_LATENCY)
                 begin
-                   if(SIZE == 2'b00)
+                   if(SIZE1 == 2'b00)
                      begin
-                        DATA_Dmem[Daddr]   = DDT[BIT_WIDTH-1:BIT_WIDTH-8];
-                        DATA_Dmem[Daddr+1] = DDT[BIT_WIDTH-9:BIT_WIDTH-16];
-                        DATA_Dmem[Daddr+2] = DDT[BIT_WIDTH-17:BIT_WIDTH-24];
-                        DATA_Dmem[Daddr+3] = DDT[BIT_WIDTH-25:BIT_WIDTH-32];
+                        DATA_Dmem[Daddr1]   = DDT1[BIT_WIDTH-1:BIT_WIDTH-8];
+                        DATA_Dmem[Daddr1+1] = DDT1[BIT_WIDTH-9:BIT_WIDTH-16];
+                        DATA_Dmem[Daddr1+2] = DDT1[BIT_WIDTH-17:BIT_WIDTH-24];
+                        DATA_Dmem[Daddr1+3] = DDT1[BIT_WIDTH-25:BIT_WIDTH-32];
                      end
-                   else if(SIZE == 2'b01)
+                   else if(SIZE1 == 2'b01)
                      begin
-                        DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b10} - Daddr[1:0]] = DDT[BIT_WIDTH-17:BIT_WIDTH-24];
-                        DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b10} - Daddr[1:0] + 1] = DDT[BIT_WIDTH-25:BIT_WIDTH-32];
+                        DATA_Dmem[{Daddr1[BIT_WIDTH-1:2],2'b10} - Daddr1[1:0]] = DDT1[BIT_WIDTH-17:BIT_WIDTH-24];
+                        DATA_Dmem[{Daddr1[BIT_WIDTH-1:2],2'b10} - Daddr1[1:0] + 1] = DDT1[BIT_WIDTH-25:BIT_WIDTH-32];
                      end
                    else
                      begin
-                        if (Daddr == STDOUT_ADDR)
+                        if (Daddr1 == STDOUT_ADDR)
                           begin
-                             $write("%c", DDT[BIT_WIDTH-25:BIT_WIDTH-32]);
+                             $write("%c", DDT1[BIT_WIDTH-25:BIT_WIDTH-32]);
                           end
                         else
-                          begin // under8bit write : SIZE = 10
-                             DATA_Dmem[{Daddr[BIT_WIDTH-1:2],2'b11} - Daddr[1:0]] = DDT[BIT_WIDTH-25:BIT_WIDTH-32];
+                          begin // under8bit write : SIZE1 = 10
+                             DATA_Dmem[{Daddr1[BIT_WIDTH-1:2],2'b11} - Daddr1[1:0]] = DDT1[BIT_WIDTH-25:BIT_WIDTH-32];
                           end
                      end
 
                    ACKD_n = 1'b0;
                    CDSL = 0;
-                  //  $display("Dmem[%h] = %h", Daddr, DDT[BIT_WIDTH-1:0]);
+                  //  $display("Dmem[%h] = %h", Daddr1, DDT1[BIT_WIDTH-1:0]);
 
 
                 end // if (CDSL == DMEM_LATENCY)
@@ -258,11 +319,73 @@ module top_test;
                 begin
                    ACKD_n = 1'b1;
                 end // else: !if(CDSL == DMEM_LATENCY)
-           end // if (u_top_1.MREQ && u_top_1.WRITE)
+           end // if (u_top_1.MREQ && u_top_1.WRITE1)
       end
    endtask // store_task1
 
-   task dump_task1;
+   task store_task2;
+      begin
+         if(u_top_1.MREQ2 && u_top_1.WRITE2)
+           begin
+
+              if (Daddr2 == EXIT_ADDR)
+                begin
+                   $display("\nExited by program.");
+                   dump_task;
+                   $finish;
+                end
+              else if (Daddr2 != STDOUT_ADDR)
+                begin
+                   if (Max_Daddr < Daddr2)
+                     begin
+                        Max_Daddr = Daddr2;
+                     end
+                end
+
+              CDSL = CDSL + 1;
+              CDLL = 0;
+
+              if(CDSL == DMEM_LATENCY)
+                begin
+                   if(SIZE2 == 2'b00)
+                     begin
+                        DATA_Dmem[Daddr2]   = DDT2[BIT_WIDTH-1:BIT_WIDTH-8];
+                        DATA_Dmem[Daddr2+1] = DDT2[BIT_WIDTH-9:BIT_WIDTH-16];
+                        DATA_Dmem[Daddr2+2] = DDT2[BIT_WIDTH-17:BIT_WIDTH-24];
+                        DATA_Dmem[Daddr2+3] = DDT2[BIT_WIDTH-25:BIT_WIDTH-32];
+                     end
+                   else if(SIZE2 == 2'b01)
+                     begin
+                        DATA_Dmem[{Daddr2[BIT_WIDTH-1:2],2'b10} - Daddr2[1:0]] = DDT2[BIT_WIDTH-17:BIT_WIDTH-24];
+                        DATA_Dmem[{Daddr2[BIT_WIDTH-1:2],2'b10} - Daddr2[1:0] + 1] = DDT2[BIT_WIDTH-25:BIT_WIDTH-32];
+                     end
+                   else
+                     begin
+                        if (Daddr2 == STDOUT_ADDR)
+                          begin
+                             $write("%c", DDT2[BIT_WIDTH-25:BIT_WIDTH-32]);
+                          end
+                        else
+                          begin // under8bit write : SIZE2 = 10
+                             DATA_Dmem[{Daddr2[BIT_WIDTH-1:2],2'b11} - Daddr2[1:0]] = DDT2[BIT_WIDTH-25:BIT_WIDTH-32];
+                          end
+                     end
+
+                   ACKD_n = 1'b0;
+                   CDSL = 0;
+                  //  $display("Dmem[%h] = %h", Daddr2, DDT2[BIT_WIDTH-1:0]);
+
+
+                end // if (CDSL == DMEM_LATENCY)
+              else
+                begin
+                   ACKD_n = 1'b1;
+                end // else: !if(CDSL == DMEM_LATENCY)
+           end // if (u_top_1.MREQ && u_top_1.WRITE1)
+      end
+   endtask // store_task2
+
+   task dump_task;
       begin
         Imem_data = $fopen("./Imem_out.dat");
         for (i = IMEM_START; i <= IMEM_START + IMEM_SIZE; i = i+4)  // output data memory to Dmem_data (Dmem_out.dat)
@@ -286,6 +409,6 @@ module top_test;
         $fclose(Reg_data);
       end
 
-   endtask // dump_task1
+   endtask // dump_task
 
 endmodule // top_test

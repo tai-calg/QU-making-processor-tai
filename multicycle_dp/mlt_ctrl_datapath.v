@@ -7,7 +7,8 @@ import alu/extend
 import data_path/pc_ff
 
 */
-`include "modules/rf32x32.v"
+// `include "modules/rf32x32.v"
+`include "modules/rf32x32_super.v"
 `include "ALU/ALU.v"
 `include "ALU/utype_alu.v"
 `include "ALU/adder.v"
@@ -86,34 +87,7 @@ import data_path/pc_ff
 
    wire ZERO;
 
-   hazard hzd(
-      .rs1_IdEx(rs1_IdEx), .rs2_IdEx(rs2_IdEx), 
-      .rd_ExMem(rd_ExMem) ,.rd_MemWB(rd_MemWB),
-      .reg_write_ExMem(reg_write_ExMem), .reg_write_MemWB(reg_write_MemWB),
-
-      .forward_rs1(forward_rs1) , .forward_rs2(forward_rs2) 
-   );
-   mux3 rs1fowarder (
-       .A(rs1Data_IdEx), .B(fwd_out_ExMem), .C(result),
-      .sel(forward_rs1), .X(srcA_E)
-   );
-
-   assign fwd_out_ExMem = (IS_lui_ExMem) ? u_out_Exmem : alu_out_ExMem;
-   mux3 rs2fowarder (
-       .A(rs2Data_IdEx), .B(fwd_out_ExMem), .C(result),
-      .sel(forward_rs2), .X(rs2Data_IdEx_fwded)
-   );
-
-   // hazard stall
-
-   assign lw_stall = result_src_IdEx == 2'b01 &&
-       (inst_IfId[19:15] == rd_IdEx   |  inst_IfId[24:20] == rd_IdEx); //ストールは一つ前までしか見ない。1cycle差のlw依存の時だけしか使わないので。
-   assign stall_if = lw_stall;
-   assign stall_id = lw_stall;
-
-   //hazard flush 
-   assign flush_IfId = pc_src;
-   assign flush_IdEx = pc_src | lw_stall;
+   
 
 
    //============= FETCH STAGE =============//
@@ -192,9 +166,41 @@ import data_path/pc_ff
          reg_write_IdEx, result_src_IdEx}) //WB
    );
 
+      // hazard stall
+
+      assign lw_stall = result_src_IdEx == 2'b01 &&
+         (inst_IfId[19:15] == rd_IdEx   |  inst_IfId[24:20] == rd_IdEx); //ストールは一つ前までしか見ない。1cycle差のlw依存の時だけしか使わないので。
+      assign stall_if = lw_stall;
+      assign stall_id = lw_stall;
+
+
 
 
       //============= EXE STAGE =============//
+
+   hazard hzd(
+         .rs1_IdEx(rs1_IdEx), .rs2_IdEx(rs2_IdEx), 
+         .rd_ExMem(rd_ExMem) ,.rd_MemWB(rd_MemWB),
+         .reg_write_ExMem(reg_write_ExMem), .reg_write_MemWB(reg_write_MemWB),
+
+         .forward_rs1(forward_rs1) , .forward_rs2(forward_rs2) 
+      );
+      mux3 rs1fowarder (
+         .A(rs1Data_IdEx), .B(fwd_out_ExMem), .C(result),
+         .sel(forward_rs1), .X(srcA_E)
+      );
+
+      assign fwd_out_ExMem = (IS_lui_ExMem) ? u_out_Exmem : alu_out_ExMem;
+      mux3 rs2fowarder (
+         .A(rs2Data_IdEx), .B(fwd_out_ExMem), .C(result),
+         .sel(forward_rs2), .X(rs2Data_IdEx_fwded)
+      );
+
+
+
+      //hazard flush 
+      assign flush_IfId = pc_src;
+      assign flush_IdEx = pc_src | lw_stall;
 
    dp_reg #(
       .WIDTH(143),
@@ -216,8 +222,9 @@ import data_path/pc_ff
    mux pcoffsetmux(pcplusImm, alu_out, IS_jalr_IdEx, pcplusOffset); //~~ pipeExMem.alu_out. 
    //おそらくこれでExステージからPCsrcが確定して次のPCの判定に使われる
    
+   
    mux pcmux(pcplus4,pcplusOffset, pc_src, pc_next);
-
+   // ここの前にpc+4 or pc+8 or pc + offset を判定する機構+nop生成機構。
 
 
    rd2ext_4to0 rdext(rs2Data_IdEx_fwded, rd2ext_src_IdEx, rd2ext);

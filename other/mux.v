@@ -53,3 +53,16 @@ module mux4(
     assign X = (sel == 2'b00) ? A : (sel == 2'b01) ? B : (sel == 2'b10) ? C : D;
 endmodule
 
+
+module mux5 (
+    input wire [31:0] A,
+    input wire [31:0] B,
+    input wire [31:0] C,
+    input wire [31:0] D,
+    input wire [31:0] E,
+    input wire [2:0] sel,     
+    output wire [31:0] X
+);
+
+    assign X = (sel == 3'b000) ? A : (sel == 3'b001) ? B : (sel == 3'b010) ? C : (sel == 3'b011) ? D : E;
+endmodule
